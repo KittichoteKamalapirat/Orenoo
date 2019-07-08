@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://kittishane:chain123@cluster0-epila.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "iamalwaysangry"
+}
