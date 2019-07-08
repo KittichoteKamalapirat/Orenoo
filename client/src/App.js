@@ -1,0 +1,24 @@
+import React, { Fragment } from 'react';
+import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Words from './components/Words';
+
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
+
+function App() {
+  return (
+    <Provider store={store}>
+      <Router>
+        <div className='App'>
+          <h1>this is app</h1>
+          <Route exact path='/words' component={Words} />
+        </div>
+        <Fragment />
+      </Router>
+    </Provider>
+  );
+}
+
+export default App;
