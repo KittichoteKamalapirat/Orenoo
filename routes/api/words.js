@@ -2,8 +2,8 @@ const express = require('express');
 const Word = require('../../models/Word');
 const router = express.Router();
 
-// @ route    POST api/posts
-// @desc      Create a post
+// @ route    POST api/words
+// @desc      Add a new word
 // @access    Public
 router.post('/', async (req, res) => {
   try {
@@ -25,6 +25,19 @@ router.get('/', async (req, res) => {
   try {
     const words = await Word.find();
     res.json(words);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @ route    GET api/words/:id
+// @desc      Get a single word
+// @access    Public
+router.get('/:id', async (req, res) => {
+  try {
+    const word = await Word.findById(req.params.id);
+    res.json(word);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

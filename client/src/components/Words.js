@@ -2,8 +2,11 @@ import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWords } from '../actions/word';
+import WordForm from './WordForm';
+import WordItem from './WordItem';
+import Word from './Word';
 
-const Words = ({ word: { words, loading }, getWords }) => {
+const Words = ({ word: { words, word, loading }, getWords }) => {
   useEffect(() => {
     getWords();
   }, [getWords]);
@@ -13,10 +16,12 @@ const Words = ({ word: { words, loading }, getWords }) => {
         <h1>loading</h1>
       ) : (
         <Fragment>
+          <WordForm />
           <h1>Words list</h1>
           {words.map(word => (
-            <li>{word.word}</li>
+            <WordItem key={word._id} word={word} />
           ))}
+          {!word ? <h1>select word</h1> : <Word />}
         </Fragment>
       )}
     </Fragment>
