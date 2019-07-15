@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 const WordForm = ({ addWord }) => {
   const [word, setWord] = useState('');
   return (
-    <div>
+    <div class='search-form'>
       <form
-        className='form my-1'
+        className='form'
         onSubmit={e => {
           e.preventDefault();
           addWord({ word });
@@ -16,15 +16,13 @@ const WordForm = ({ addWord }) => {
         }}
       >
         <textarea
-          name='title'
-          cols='30'
-          rows='5'
+          name='word'
+          rows='1'
           placeholder='Add new vocabulary'
           value={word}
           onChange={e => setWord(e.target.value)}
           required
         />
-        <h1>{word}</h1>
         <input type='submit' className='btn btn-dark my-1' value='Submit' />
       </form>
     </div>

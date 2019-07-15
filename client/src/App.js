@@ -11,11 +11,9 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div className='App'>
-          <h1>this is app</h1>
-          <Route exact path='/words' component={Words} />
-        </div>
-        <Fragment />
+        <Fragment>
+          <Words />
+        </Fragment>
       </Router>
     </Provider>
   );

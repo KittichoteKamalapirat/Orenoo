@@ -1,0 +1,31 @@
+$primary-color: #1abe90;
+$dark-color: #333333;
+$light-color: #f2f2f2;
+$grey-color: #808080;
+$light-grey: #b3b3b3;
+$action-color: #22b573;
+$success-color: #22b573;
+$danger-color: #c1272d;
+
+// dictionary website color
+$dictionary: #3a76c3;
+$thesaurus: #f5a623;
+$mnemonic: #3097d1;
+$longdo: #fb4f03;
+$example: #3995d9;
+
+$max-width: 1200px;
+
+// Set text color based on background
+@function set-text-color($color) {
+  @if (lightness($color) > 50) {
+    @return #333;
+  } @else {
+    @return #fff;
+  }
+}
+// Set background & text color
+@mixin set-background($color) {
+  background-color: $color;
+  color: set-text-color($color);
+}

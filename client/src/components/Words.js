@@ -15,14 +15,19 @@ const Words = ({ word: { words, word, loading }, getWords }) => {
       {loading ? (
         <h1>loading</h1>
       ) : (
-        <Fragment>
-          <WordForm />
-          <h1>Words list</h1>
-          {words.map(word => (
-            <WordItem key={word._id} word={word} />
-          ))}
-          {!word ? <h1>select word</h1> : <Word />}
-        </Fragment>
+        <div className='grid'>
+          <div className='navbar'>
+            <h1 id='logo'>MyDic</h1>
+            {words.map(word => (
+              <WordItem key={word._id} word={word} />
+            ))}
+          </div>
+          <div className='right-area'>
+            <WordForm />
+
+            {!word ? <h1>select word</h1> : <Word />}
+          </div>
+        </div>
       )}
     </Fragment>
   );
