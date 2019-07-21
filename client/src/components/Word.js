@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { addWord } from '../actions/word';
 const Word = ({
   word: {
     word: { word, _id, dict, thai, mnemonic, synonym, example }
-  }
+  },
+  addWord
 }) => (
   // dictionary.com
   <div>
@@ -114,8 +116,19 @@ const Word = ({
     <div className='synonym shadow-box'>
       <h2 className='thesaurus-color'>Thesauras.com</h2>
       <ul>
-        {synonym.map(syn => (
-          <li>{syn}</li>
+        {synonym.map(word => (
+          <li>
+            {' '}
+            {/* importtant to make this to be word since req needs req.body.word*/}
+            <button
+              className='synonym-item'
+              onClick={e => {
+                addWord({ word });
+              }}
+            >
+              {word}
+            </button>
+          </li>
         ))}
       </ul>
     </div>
@@ -137,10 +150,14 @@ const Word = ({
 );
 
 Word.propTypes = {
-  word: PropTypes.object.isRequired
+  word: PropTypes.object.isRequired,
+  addWord: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   word: state.word
 });
-export default connect(mapStateToProps)(Word);
+export default connect(
+  mapStateToProps,
+  { addWord }
+)(Word);

@@ -10,6 +10,10 @@ const reload = require('reload');
 
 app.use(express.json({ extended: false }));
 
+//Define Routes
+// Pertain the /api/users to the / in routes/api/users
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/words', require('./routes/api/words'));
 
 // for auto reload

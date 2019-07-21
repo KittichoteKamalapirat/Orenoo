@@ -5,14 +5,23 @@ import { connect } from 'react-redux';
 
 const WordForm = ({ addWord }) => {
   const [word, setWord] = useState('');
+
   return (
     <div class='search-form'>
       <form
-        className='form'
-        onSubmit={e => {
-          e.preventDefault();
-          addWord({ word });
-          setWord('');
+        // className='form'
+        // onSubmit={e => {
+        //   e.preventDefault();
+        //   addWord({ word });
+        //   setWord('');
+        // }}
+
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            addWord({ word });
+            setWord('');
+          }
         }}
       >
         <textarea
@@ -23,7 +32,7 @@ const WordForm = ({ addWord }) => {
           onChange={e => setWord(e.target.value)}
           required
         />
-        <input type='submit' className='btn btn-dark my-1' value='Submit' />
+        {/* <input type='submit' className='btn btn-dark my-1' value='Submit' /> */}
       </form>
     </div>
   );

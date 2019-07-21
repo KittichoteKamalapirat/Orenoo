@@ -2,15 +2,17 @@ const express = require('express');
 const Word = require('../../models/Word');
 const router = express.Router();
 const axios = require('axios');
+const auth = require('../../middleware/auth');
 // For Scraping
 const request = require('request');
 const cheerio = require('cheerio');
 
 // @ route    POST api/words
 // @desc      Add a new word
-// @access    Public
-router.post('/', async (req, res) => {
+// @access    Private
+router.post('/', auth, async (req, res) => {
   let newWord = new Word({
+    user: req.user.id,
     word: req.body.word,
     dict: {
       noun: [],
@@ -33,12 +35,13 @@ router.post('/', async (req, res) => {
       async (error, response, html) => {
         if (!error && response.statusCode === 200) {
           const $ = cheerio.load(html);
-          const dict = $('.css-996xur').each((index, value) => {
+          const dict = $('.css-8ndocq').each((index, value) => {
             let speech = $(value)
               .find('h3.css-sdwj8v')
-              .text();
+              .text()
+              .substring(0, 4);
             if (/\s/.test(speech)) {
-              speech = speech.split(' ')[0];
+              speech = speech.substring(0, 4);
             }
             console.log(speech);
             switch (speech) {
@@ -56,21 +59,21 @@ router.post('/', async (req, res) => {
                     newWord.dict.verb.push($(value).text());
                   });
                 break;
-              case 'adjective':
+              case 'adje':
                 $(value)
                   .find('.e1q3nk1v3')
                   .each((index, value) => {
                     newWord.dict.adjective.push($(value).text());
                   });
                 break;
-              case 'adverb':
+              case 'adve':
                 $(value)
                   .find('.e1q3nk1v3')
                   .each((index, value) => {
-                    newWord.dict.ådverb.push($(value).text());
+                    newWord.dict.adverb.push($(value).text());
                   });
                 break;
-              case 'Idioms':
+              case 'Idio':
                 $(value)
                   .find('.e1q3nk1v3')
                   .each((index, value) => {
@@ -93,7 +96,6 @@ router.post('/', async (req, res) => {
         const synonym = $(value).text();
         newWord.synonym.push(synonym);
       });
-      console.log('===================================');
       if ($('.css-gkae64').length === 0) {
         $('.css-q7ic04').each((index, value) => {
           const synonym = $(value).text();
@@ -137,51 +139,25 @@ router.post('/', async (req, res) => {
       res.status(500).send('Server Error');
     }
 
-    // Thai
-    try {
-      const response = await axios(
-        `https://dict.longdo.com/search/${req.body.word}`
-      );
-      const $ = cheerio.load(response.data);
-      const table = $("b:contains('NECTEC')")
-        .parent()
-        .parent()
-        .next();
-
-      table.find('.search-result-table tr').each((index, value) => {
-        let word = $(value)
-          .find('td:first-child')
-          .text()
-          .trim();
-
-        let allMeaning = $(value)
-          .find('td:last-child')
-          .text();
-        let meaning = allMeaning.replace(/, See .*$/g, '').trim();
-
-        let toPush = {
-          word: word,
-          meaning: meaning
-        };
-        newWord.thai.push(toPush);
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Server Error');
-    }
-
     // Sentence Example
     try {
       const response = await axios.get(
         `https://sentence.yourdictionary.com/${req.body.word}`
       );
       const $ = cheerio.load(response.data);
+
       $('.voting_li').each((index, value) => {
         const content = $(value)
           .find('.li_content')
           .text()
           .replace(/\s\s+/g, '');
 
+        newWord.example.push(content);
+      });
+      $('.sentence.component').each((index, value) => {
+        const content = $(value)
+          .text()
+          .replace(/\s\s+/g, '');
         newWord.example.push(content);
       });
     } catch (err) {
@@ -202,10 +178,34 @@ router.post('/', async (req, res) => {
 
 // @ route    GET api/words
 // @desc      Get all the words
-// @access    Public
-router.get('/', async (req, res) => {
+// @access    private
+router.get('/', auth, async (req, res) => {
   try {
-    const words = await Word.find();
+    const beforeShuffle = await Word.find({ user: req.user.id });
+
+    // randomize the order Fisher-Yates Shuffle
+    const shuffle = array => {
+      var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    };
+
+    const words = shuffle(beforeShuffle);
+
     res.json(words);
   } catch (err) {
     console.error(err.message);
@@ -215,12 +215,15 @@ router.get('/', async (req, res) => {
 
 // @ route    GET api/words/:id
 // @desc      Get a single word
-// @access    Public
-router.get('/:id', async (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+// @access    Private
+router.get('/:id', auth, async (req, res) => {
   try {
     let word = await Word.findById(req.params.id);
+
+    if (word.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized ' });
+    }
+
     res.json(word);
   } catch (err) {
     console.error(err.message);
@@ -230,16 +233,22 @@ router.get('/:id', async (req, res) => {
 
 // @ route    DELETE api/words/:id
 // @desc      Delete a word by id
-// @access    Public
-router.delete('/:id', async (req, res) => {
+// @access    Private
+router.delete('/:id', auth, async (req, res) => {
   try {
     const word = await Word.findById(req.params.id);
 
     if (!word) {
-      return res.status(404).json({ msg: 'Post not found' });
+      return res.status(404).json({ msg: 'Word not found' });
     }
+
+    //Check whether it's the authenticated user
+    if (word.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized ' });
+    }
+
     await word.remove();
-    res.json({ msg: 'Post deleted' });
+    res.json({ msg: 'Word deleted' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

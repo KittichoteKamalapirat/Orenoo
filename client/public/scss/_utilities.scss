@@ -1,3 +1,10 @@
+.large {
+  font-size: 2rem;
+}
+.small {
+  font-size: 0.8rem;
+}
+
 .bg {
   &-primary {
     @include set-background($primary-color);

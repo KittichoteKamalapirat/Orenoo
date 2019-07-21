@@ -5,6 +5,7 @@ import { getWords } from '../actions/word';
 import WordForm from './WordForm';
 import WordItem from './WordItem';
 import Word from './Word';
+import Spinner from './layout/Spinner';
 
 const Words = ({ word: { words, word, loading }, getWords }) => {
   useEffect(() => {
@@ -13,18 +14,17 @@ const Words = ({ word: { words, word, loading }, getWords }) => {
   return (
     <Fragment>
       {loading ? (
-        <h1>loading</h1>
+        <Spinner />
       ) : (
         <div className='grid'>
           <div className='navbar'>
-            <h1 id='logo'>MyDic</h1>
-            {words.map(word => (
-              <WordItem key={word._id} word={word} />
-            ))}
+            <div className='word-item'>
+              {words.map(word => (
+                <WordItem key={word._id} word={word} />
+              ))}
+            </div>
           </div>
           <div className='right-area'>
-            <WordForm />
-
             {!word ? <h1>select word</h1> : <Word />}
           </div>
         </div>
