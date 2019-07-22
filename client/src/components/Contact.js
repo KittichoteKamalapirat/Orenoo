@@ -7,14 +7,16 @@ const Contact = () => {
         <h1>Contact Us</h1>
         <p className='lead'>We'd love to hear from you</p>
 
-        <form action='send' className='contact-form'>
+        <form method='POST' action='contact' className='contact-form'>
           <p className='label'>Name</p>
           <input name='name' type='text' />
           <p className='label'>E-mail</p>
           <input name='email' type='text' />
           <p className='label'>Message</p>
           <textarea name='message' cols='30' rows='10' />
-          <input className='btn btn-action' type='submit' />
+          <button className='btn btn-action' type='submit'>
+            submit
+          </button>
         </form>
       </div>
     </div>

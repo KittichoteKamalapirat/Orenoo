@@ -26,6 +26,11 @@ const Landing = props => {
           Orenoo combines difinition, synonyms, sentence examples, mnemonics
           together.
         </p>
+
+        <p className='lead'>
+          Get started by create your own account and add your own set of
+          vocabularies.
+        </p>
       </div>
 
       <Footer />

@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import Alert from '../layout/Alert';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -27,6 +28,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
   return (
     <Fragment>
+      <Alert />
       <div className='register-form'>
         {/* <div className='close'>+</div> */}
         <h1 className='large bold'>Sign in</h1>

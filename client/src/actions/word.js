@@ -1,6 +1,6 @@
 import { ADD_WORD, GET_WORDS, GET_WORD, DELETE_WORD } from './types';
 import axios from 'axios';
-
+import { setAlert } from './alert';
 // Add a new word
 export const addWord = word => async dispatch => {
   const config = {
@@ -14,6 +14,7 @@ export const addWord = word => async dispatch => {
       type: ADD_WORD,
       payload: res.data
     });
+    dispatch(setAlert(`${word.word} ddded`, 'success'));
   } catch (err) {
     console.error(err.message);
   }
@@ -50,13 +51,14 @@ export const getWord = id => async dispatch => {
 };
 
 // get all the words
-export const deleteWord = id => async dispatch => {
+export const deleteWord = (id, word) => async dispatch => {
   try {
     await axios.delete(`/api/words/${id}`);
     dispatch({
       type: DELETE_WORD,
       payload: id
     });
+    dispatch(setAlert(`${word} deleted`, 'success'));
   } catch (err) {
     console.error(err.message);
   }

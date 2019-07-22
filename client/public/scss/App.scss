@@ -23,7 +23,7 @@ li {
   list-style-type: none;
 }
 .container {
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 .flex {
@@ -68,6 +68,7 @@ button {
   .auth {
     display: flex;
     box-shadow: 0px 0px 2px 1px #e6e6e6;
+    background-color: white;
     .search-form {
       textarea {
         z-index: 3;
@@ -109,12 +110,11 @@ button {
   z-index: 1;
   position: fixed;
   grid-area: navbar;
-  background-color: white;
   height: 100%;
   height: 100vh;
   width: 6.5rem;
   text-align: left;
-  padding: 5rem 0.2rem 1rem 0.5rem;
+  padding: 0 0.2rem 1rem 0.5rem;
   overflow-y: scroll;
   overflow-x: hidden;
   border-right: solid 0.5px $light-grey;
@@ -222,7 +222,7 @@ button {
   bottom: 0;
   right: 0;
   left: 0;
-  height: 30rem;
+  height: 25rem;
 }
 .landing {
   .header {
@@ -230,8 +230,11 @@ button {
     text-align: center;
     color: white;
     .content {
-      padding-top: 7rem;
-      padding-bottom: 7rem;
+      padding-top: 5rem;
+      padding-bottom: 4rem;
+      margin-top: 2rem;
+      margin-bottom: 6rem;
+      background-color: $primary-color;
       .lead {
         width: 80%;
         margin: 0 auto;
@@ -349,9 +352,54 @@ button {
     margin-bottom: 1rem;
     border: solid 1px $primary-color;
   }
+  .btn {
+    margin-top: 2rem;
+    width: 100%;
+  }
 }
+
+// Alert
+
+.alert {
+  width: 100%;
+  margin: 0.2rem auto;
+  padding: 0.2rem;
+  color: #333;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+.alert-primary {
+  background: $primary-color;
+  color: #fff;
+}
+.alert-danger {
+  background: #faced5;
+  color: $danger-color;
+  border: 1px solid $danger-color;
+}
+
+.alert-success {
+  background: #b3e0e2;
+  color: $success-color;
+  border: 1px solid $success-color;
+}
+
 @media screen and (min-width: 700px) {
   .register-form {
     width: 60%;
+  }
+
+  // Landing
+  .header__bg {
+    background-color: $primary-color;
+    transform: skewY(5deg);
+    z-index: -10;
+    position: absolute;
+    transform-origin: top left;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 25rem;
   }
 }

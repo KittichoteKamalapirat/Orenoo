@@ -9,7 +9,7 @@ const WordItem = ({ word: { word, _id }, getWord, deleteWord }) => {
       <button className='word' onClick={e => getWord(_id)}>
         {word}
       </button>
-      <button className='remove-word' onClick={e => deleteWord(_id)}>
+      <button className='remove-word' onClick={e => deleteWord(_id, word)}>
         +
       </button>
     </div>
