@@ -1,15 +1,11 @@
 const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 80;
 const bodyParser = require('body-parser');
-connectDB();
-// for auto reload
-const http = require('http');
-const reload = require('reload');
-// -----------------------
-// I don't understand this !
+const path = require('path');
 
+connectDB();
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 app.use(express.json({ extended: false }));
@@ -21,10 +17,14 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/words', require('./routes/api/words'));
 app.use('/', require('./routes/api/mail'));
 
-// for auto reload
-const server = http.createServer(app);
-server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-reload(app);
+// Serve static asets in production
+if(process.env.NODE_ENV === 'production' ) {
+//set static folder
+app.use(express.static('client/build'))
 
-// before auto reload
-// app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.get('*', (req,res) => {
+res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+})
+}
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
