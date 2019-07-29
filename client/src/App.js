@@ -7,7 +7,6 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Landing from './components/Landing';
 import Contact from './components/Contact';
-import Alert from './components/layout/Alert';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 // Redux

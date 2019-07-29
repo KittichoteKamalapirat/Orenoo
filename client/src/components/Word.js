@@ -1,16 +1,151 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addWord } from '../actions/word';
 const Word = ({
   word: {
-    word: { word, _id, dict, thai, mnemonic, synonym, example }
+    word: { word, _id, dict, google, thai, mnemonic, synonym, example }
   },
+  auth,
   addWord
 }) => (
   // dictionary.com
   <div>
     <h1>{word}</h1>
+
+    {/* longdo.com */}
+    {auth.user._id === '5d3438a8bde148428871ee02' && (
+      <div className='thai shadow-box'>
+        <h2 className='longdo-color'>Longdo.com</h2>
+        <ul>
+          {thai.map(obj => (
+            <li className='row'>
+              <b>{obj.word}</b>
+              <span>{obj.meaning}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {/* google */}
+
+    {/* Noun */}
+    <div className='google shadow-box'>
+      <h2>Google API</h2>
+
+      {/* Noun */}
+      {google.noun.length > 0 && <h3>noun</h3>}
+      {google.noun.length > 0 &&
+        google.noun.map((def, index) => (
+          <div className='def'>
+            {def.definition && <p className='definition'>{def.definition}hi</p>}
+            {def.example && (
+              <p className='example'>
+                <span>"</span>
+                {def.example}
+                <span>"</span>
+              </p>
+            )}
+
+            {def.synonyms && (
+              <p className='synonyms'>
+                <span>Syn:</span>
+                {def.synonyms.map((syn, index) => (
+                  <Fragment>
+                    <span key={index}>{syn}</span>
+                    <span>, </span>
+                  </Fragment>
+                ))}
+              </p>
+            )}
+          </div>
+        ))}
+
+      {/* Verb */}
+      {google.verb.length > 0 && <h3>verb</h3>}
+      {google.verb.length > 0 &&
+        google.verb.map((def, index) => (
+          <div className='def'>
+            {def.definition && <p className='definition'>{def.definition}hi</p>}
+            {def.example && (
+              <p className='example'>
+                <span>"</span>
+                {def.example}
+                <span>"</span>
+              </p>
+            )}
+
+            {def.synonyms && (
+              <p className='synonyms'>
+                <span>Syn:</span>
+                {def.synonyms.map((syn, index) => (
+                  <Fragment>
+                    <span key={index}>{syn}</span>
+                    <span>, </span>
+                  </Fragment>
+                ))}
+              </p>
+            )}
+          </div>
+        ))}
+
+      {/* Adjective */}
+      {google.adjective.length > 0 && <h3>adjective</h3>}
+      {google.adjective.length > 0 &&
+        google.adjective.map((def, index) => (
+          <div className='def'>
+            {def.definition && <p className='definition'>{def.definition}hi</p>}
+            {def.example && (
+              <p className='example'>
+                <span>"</span>
+                {def.example}
+                <span>"</span>
+              </p>
+            )}
+
+            {def.synonyms && (
+              <p className='synonyms'>
+                <span>Syn:</span>
+                {def.synonyms.map((syn, index) => (
+                  <Fragment>
+                    <span key={index}>{syn}</span>
+                    <span>, </span>
+                  </Fragment>
+                ))}
+              </p>
+            )}
+          </div>
+        ))}
+
+      {/* Adverb */}
+      {google.adverb.length > 0 && <h3>adverb</h3>}
+      {google.adverb.length > 0 &&
+        google.adverb.map((def, index) => (
+          <div className='def'>
+            {def.definition && <p className='definition'>{def.definition}hi</p>}
+            {def.example && (
+              <p className='example'>
+                <span>"</span>
+                {def.example}
+                <span>"</span>
+              </p>
+            )}
+
+            {def.synonyms && (
+              <p className='synonyms'>
+                <span>Syn:</span>
+                {def.synonyms.map((syn, index) => (
+                  <Fragment>
+                    <span key={index}>{syn}</span>
+                    <span>, </span>
+                  </Fragment>
+                ))}
+              </p>
+            )}
+          </div>
+        ))}
+    </div>
 
     <div className='dict shadow-box'>
       <h2 className='dictionary-color'>Dictionary.com</h2>
@@ -85,19 +220,6 @@ const Word = ({
       </ul>
     </div>
 
-    {/* longdo.com */}
-    <div className='thai shadow-box'>
-      <h2 className='longdo-color'>Longdo.com</h2>
-      <ul>
-        {thai.map(obj => (
-          <li className='row'>
-            <b>{obj.word}</b>
-            <span>{obj.meaning}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-
     {/* mnemonic.com */}
     <div className='mnemonic shadow-box'>
       <h2 className='mnemonic-color'>Mnemonic Dictionary</h2>
@@ -137,7 +259,7 @@ const Word = ({
     <div className='example shadow-box'>
       <h2 className='example-color'>Sentence Example</h2>
 
-      {example.slice(0, 4).map(sen => (
+      {example.slice(0, 8).map(sen => (
         <div className='item'>
           <hr />
           <br />
@@ -151,11 +273,13 @@ const Word = ({
 
 Word.propTypes = {
   word: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   addWord: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  word: state.word
+  word: state.word,
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,

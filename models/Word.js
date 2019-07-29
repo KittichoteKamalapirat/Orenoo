@@ -7,7 +7,8 @@ const WordSchema = new Schema({
   },
   word: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   dict: {
     noun: {
@@ -23,6 +24,20 @@ const WordSchema = new Schema({
       type: Array
     },
     idioms: {
+      type: Array
+    }
+  },
+  google: {
+    noun: {
+      type: Array
+    },
+    verb: {
+      type: Array
+    },
+    adverb: {
+      type: Array
+    },
+    adjective: {
       type: Array
     }
   },

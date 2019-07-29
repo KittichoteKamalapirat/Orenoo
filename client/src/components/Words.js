@@ -35,7 +35,6 @@ const Words = ({ word: { words, word, loading }, getWords }) => {
 };
 
 Words.propTypes = {
-  users: PropTypes.object.isRequired,
   getWords: PropTypes.func.isRequired
 };
 

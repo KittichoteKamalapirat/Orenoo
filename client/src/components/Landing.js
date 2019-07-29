@@ -4,7 +4,7 @@ import Footer from './layout/Footer';
 const Landing = props => {
   return (
     <div className='landing'>
-      <div class='header__bg' />
+      <div className='header__bg' />
       <div className='header'>
         <div className='content'>
           <h1>Learn Smarter</h1>

@@ -23,7 +23,7 @@ li {
   list-style-type: none;
 }
 .container {
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 
 .flex {
@@ -169,8 +169,24 @@ button {
 }
 
 // content area
+
+.google {
+  h2 {
+    color: $google-color;
+  }
+  h3 {
+    font-style: italic;
+  }
+  .example {
+    color: $grey-color;
+  }
+  .synonyms {
+    color: $dark-grey;
+    word-wrap: break-word;
+  }
+}
 .dict {
-  paddin span {
+  span {
     font-weight: 700;
     color: $light-grey;
     font-size: 0.8rem;
@@ -229,6 +245,7 @@ button {
     transform-origin: top left;
     text-align: center;
     color: white;
+    margin-top: -2rem;
     .content {
       padding-top: 5rem;
       padding-bottom: 4rem;
@@ -379,7 +396,7 @@ button {
 }
 
 .alert-success {
-  background: #b3e0e2;
+  background-color: transparent;
   color: $success-color;
   border: 1px solid $success-color;
 }

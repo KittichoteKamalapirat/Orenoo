@@ -14,8 +14,9 @@ export const addWord = word => async dispatch => {
       type: ADD_WORD,
       payload: res.data
     });
-    dispatch(setAlert(`${word.word} ddded`, 'success'));
+    dispatch(setAlert(`${word.word} added`, 'success'));
   } catch (err) {
+    dispatch(setAlert(`unable to add ${word.word}`, 'danger'));
     console.error(err.message);
   }
 };

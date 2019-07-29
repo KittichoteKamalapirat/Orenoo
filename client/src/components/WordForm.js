@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addWord } from '../actions/word';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ const WordForm = ({ addWord }) => {
   const [word, setWord] = useState('');
 
   return (
-    <div class='search-form'>
+    <div className='search-form'>
       <form
         // className='form'
         // onSubmit={e => {

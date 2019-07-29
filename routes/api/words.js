@@ -19,23 +19,57 @@ router.post('/', auth, async (req, res) => {
       verb: [],
       adjective: [],
       adverb: [],
-      idioms: [],
-      example: []
+      idioms: []
+    },
+    google: {
+      noun: [],
+      verb: [],
+      adjective: [],
+      adverb: []
     },
     thai: [],
-    mnemonic: []
+    mnemonic: [],
+    example: [],
+    synonym: []
   });
 
-  try {
-    // Scrape for dictionary information
+  // Scrape for dictionary information
 
-    // Dictionary.com;
+  // Google Dictionary
+  try {
+    const response = await axios.get(
+      `https://googledictionaryapi.eu-gb.mybluemix.net/?define=${
+        req.body.word
+      }&lang=en`
+    );
+    const meaning = response.data[0].meaning;
+
+    if (meaning.noun) {
+      newWord.google.noun = meaning.noun;
+    }
+    if (meaning.verb) {
+      newWord.google.verb = meaning.verb;
+    }
+
+    if (meaning.adjective) {
+      newWord.google.adjective = meaning.adjective;
+    }
+
+    if (meaning.adverb) {
+      newWord.google.adverb = meaning.adverb;
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  // Dictionary.com;
+  try {
     await request(
       `https://www.dictionary.com/browse/${req.body.word}`,
       async (error, response, html) => {
         if (!error && response.statusCode === 200) {
           const $ = cheerio.load(html);
-          const dict = $('.css-8ndocq').each((index, value) => {
+          const dict = $('.css-pnw38j').each((index, value) => {
             let speech = $(value)
               .find('h3.css-sdwj8v')
               .text()
@@ -43,7 +77,7 @@ router.post('/', auth, async (req, res) => {
             if (/\s/.test(speech)) {
               speech = speech.substring(0, 4);
             }
-            console.log(speech);
+            // console.log(speech);
             switch (speech) {
               case 'noun':
                 $(value)
@@ -103,7 +137,7 @@ router.post('/', auth, async (req, res) => {
         });
       }
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
       res.status(500).send('Server Error');
     }
     //menmonic
@@ -135,7 +169,7 @@ router.post('/', auth, async (req, res) => {
         newWord.mnemonic.push(mnemonic);
       });
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
       res.status(500).send('Server Error');
     }
 
@@ -161,15 +195,64 @@ router.post('/', auth, async (req, res) => {
         newWord.example.push(content);
       });
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+
+    // Thai
+    try {
+      const response = await axios(
+        `https://dict.longdo.com/search/${req.body.word}`
+      );
+      const $ = cheerio.load(response.data);
+      const table = $("b:contains('NECTEC')")
+        .parent()
+        .parent()
+        .next();
+
+      table.find('.search-result-table tr').each((index, value) => {
+        let word = $(value)
+          .find('td:first-child')
+          .text()
+          .trim();
+
+        let allMeaning = $(value)
+          .find('td:last-child')
+          .text();
+        let meaning = allMeaning.replace(/, See .*$/g, '').trim();
+
+        let toPush = {
+          word: word,
+          meaning: meaning
+        };
+        newWord.thai.push(toPush);
+      });
+    } catch (err) {
+      console.error(err.message);
       res.status(500).send('Server Error');
     }
 
     // ____________________________________BEFORE SAVE____________________________________
-    console.log(newWord);
-    const word = await newWord.save();
+    // console.log(newWord);
 
-    res.json(word);
+    if (
+      newWord.dict.noun.length !== 0 ||
+      newWord.dict.verb.length !== 0 ||
+      newWord.dict.adjective.length !== 0 ||
+      newWord.dict.adverb.length !== 0 ||
+      newWord.dict.idioms.length !== 0 ||
+      newWord.google.noun.length !== 0 ||
+      newWord.google.verb.length !== 0 ||
+      newWord.google.adjective.length !== 0 ||
+      newWord.google.adverb.length !== 0 ||
+      newWord.thai.length !== 0 ||
+      newWord.example.length !== 0 ||
+      newWord.synonym.length !== 0 ||
+      newWord.mnemonic.length !== 0
+    ) {
+      const word = await newWord.save();
+      res.json(word);
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server Error');
