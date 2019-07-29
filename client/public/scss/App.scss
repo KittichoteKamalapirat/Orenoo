@@ -43,10 +43,10 @@ button {
   top: 0;
   left: 0;
   width: 100%;
+  box-shadow: 0px 0px 2px 1px #e6e6e6;
   .guest {
     display: flex;
     background-color: #fff;
-    box-shadow: 0px 0px 2px 1px #e6e6e6;
     #logo {
       margin: 0.5rem 1rem;
     }
@@ -67,7 +67,6 @@ button {
   }
   .auth {
     display: flex;
-    box-shadow: 0px 0px 2px 1px #e6e6e6;
     background-color: white;
     .search-form {
       textarea {
@@ -266,9 +265,20 @@ button {
       }
     }
   }
-  .how-it-works {
+  .what,
+  .how-it-works,
+  .why {
     margin: 3rem;
     .lead {
+      margin-top: 1rem;
+    }
+  }
+
+  .what {
+    a {
+      display: block;
+      text-decoration: none;
+      color: $primary-color;
       margin-top: 1rem;
     }
   }
@@ -283,6 +293,7 @@ button {
     padding: 1rem;
     .logo {
       color: $primary-color;
+      text-align: center;
     }
     * {
       color: $light-color;
@@ -402,6 +413,23 @@ button {
 }
 
 @media screen and (min-width: 700px) {
+  .horizontal-navbar {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px 0px 2px 1px #e6e6e6;
+    .auth,
+    .guest {
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+  }
+  .container {
+    margin: 5 auto;
+  }
+
   .register-form {
     width: 60%;
   }
@@ -417,6 +445,97 @@ button {
     bottom: 0;
     right: 0;
     left: 0;
-    height: 25rem;
+    height: 26rem;
+  }
+  // Vertical Navbar
+
+  .right-area {
+    width: 80%;
+    max-width: 800px;
+  }
+
+  // Vertical
+  .navbar {
+    font-size: 2rem;
+    left: 10%;
+    width: 10rem;
+    border-right: solid 0.5px $light-grey;
+    border-left: solid 0.5px $light-grey;
+    .word-item .each-item .word {
+      font-size: 1.2rem;
+    }
+  }
+
+  // Landing
+
+  .landing {
+    margin-top: -5rem;
+    padding-top: 7rem;
+    font-size: 1.3rem;
+
+    .header {
+      transform-origin: top left;
+      margin-top: -2rem;
+      .content {
+        padding-top: 5rem;
+        padding-bottom: 1rem;
+        margin-top: -5rem;
+        .lead {
+          font-size: 1.6rem;
+          width: 80%;
+          max-width: 700px;
+          margin: 1rem auto;
+        }
+        .button {
+          padding: 0.5rem 1rem;
+          margin-top: 3rem;
+          font-size: 1rem;
+        }
+      }
+    }
+    .what {
+      margin: 10rem auto 5rem;
+      width: 80%;
+      max-width: 700px;
+      .lead {
+        margin-top: 1rem;
+      }
+      a {
+        margin-top: 1rem;
+      }
+    }
+    .how-it-works,
+    .why {
+      margin: 5rem auto 4rem;
+      width: 80%;
+      max-width: 700px;
+      .lead {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .footer {
+    font-size: 1rem;
+    padding: 2rem;
+    .content {
+      width: 80%;
+      max-width: 700px;
+      margin: auto;
+      .link {
+        display: flex;
+        justify-content: space-around;
+        margin: 0 auto;
+      }
+      #copyright {
+        text-align: center;
+      }
+    }
+  }
+
+  .contact {
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto;
   }
 }

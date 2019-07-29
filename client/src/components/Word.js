@@ -39,7 +39,7 @@ const Word = ({
       {google.noun.length > 0 &&
         google.noun.map((def, index) => (
           <div className='def'>
-            {def.definition && <p className='definition'>{def.definition}hi</p>}
+            {def.definition && <p className='definition'>{def.definition}</p>}
             {def.example && (
               <p className='example'>
                 <span>"</span>
@@ -67,7 +67,7 @@ const Word = ({
       {google.verb.length > 0 &&
         google.verb.map((def, index) => (
           <div className='def'>
-            {def.definition && <p className='definition'>{def.definition}hi</p>}
+            {def.definition && <p className='definition'>{def.definition}</p>}
             {def.example && (
               <p className='example'>
                 <span>"</span>
@@ -95,7 +95,7 @@ const Word = ({
       {google.adjective.length > 0 &&
         google.adjective.map((def, index) => (
           <div className='def'>
-            {def.definition && <p className='definition'>{def.definition}hi</p>}
+            {def.definition && <p className='definition'>{def.definition}</p>}
             {def.example && (
               <p className='example'>
                 <span>"</span>
@@ -123,7 +123,7 @@ const Word = ({
       {google.adverb.length > 0 &&
         google.adverb.map((def, index) => (
           <div className='def'>
-            {def.definition && <p className='definition'>{def.definition}hi</p>}
+            {def.definition && <p className='definition'>{def.definition}</p>}
             {def.example && (
               <p className='example'>
                 <span>"</span>

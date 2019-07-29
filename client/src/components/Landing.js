@@ -9,8 +9,8 @@ const Landing = props => {
         <div className='content'>
           <h1>Learn Smarter</h1>
           <p className='lead'>
-            Orenoo helps non-native English speakers learn new English
-            vocabularies in a more effective way
+            Orenoo helps non-native English students learn new vocabularies in a
+            more effective way.
           </p>
           <Link to='/register'>
             <button className='button'>
@@ -20,16 +20,45 @@ const Landing = props => {
           </Link>
         </div>
       </div>
-      <div className='how-it-works'>
-        <h2>How it works</h2>
+
+      <div className='what'>
+        <h2>What is Orenoo</h2>
         <p className='lead'>
-          Orenoo combines difinition, synonyms, sentence examples, mnemonics
-          together.
+          Orenoo combines English vocabulary's Difinition, Synonyms, Sentence
+          examples, and Mnemonics together in one application.
         </p>
 
         <p className='lead'>
-          Get started by create your own account and add your own set of
+          Get started by create your own account and make your own set of
           vocabularies.
+        </p>
+        <Link to='/register'>
+          <span>Create Account &nbsp;</span>
+          <i className='fas fa-angle-right' />
+        </Link>
+      </div>
+
+      <div className='how-it-works'>
+        <h2>How it works</h2>
+        <p className='lead'>
+          Add your own words by typing in the search bar. These terms will be
+          saved to your account and you can access them anytime.
+        </p>
+
+        <p className='lead'>
+          You can delete words that you already remembered and add new one
+          whenever you want.
+        </p>
+      </div>
+
+      <div className='why'>
+        <h2>What problem do we solve</h2>
+        <p className='lead'>
+          Language learners always have difficult remembering new vocabs.
+          Therefore, they look in as many sources as possible so they can
+          remember. However, most dictionary applications do not offer all the
+          resource learners want. With Orenoo, you do not have to go search for
+          multiple websites, we combine them for you in one single application.
         </p>
       </div>
 
