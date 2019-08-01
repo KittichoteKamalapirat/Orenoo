@@ -4,11 +4,35 @@ import PropTypes from 'prop-types';
 import WordForm from '../WordForm';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
+import { shuffle, unshuffle } from '../../actions/word';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({
+  word,
+  auth: { isAuthenticated, loading },
+  logout,
+  shuffle,
+  unshuffle
+}) => {
   const authLinks = (
     <div className='auth'>
       <WordForm />
+      {word.shuffled ? (
+        <button
+          onClick={e => {
+            unshuffle(word.words);
+          }}
+        >
+          <i className='fas fa-random primary-color' />
+        </button>
+      ) : (
+        <button
+          onClick={e => {
+            shuffle(word.words);
+          }}
+        >
+          <i className='fas fa-random light-grey' />
+        </button>
+      )}
 
       <ul>
         <li>
@@ -55,14 +79,18 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  shuffle: PropTypes.func.isRequired,
+  unshuffle: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  word: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  word: state.word
 });
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { logout, shuffle, unshuffle }
 )(Navbar);

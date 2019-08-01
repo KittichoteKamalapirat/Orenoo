@@ -51,9 +51,16 @@ const Word = ({
             {def.synonyms && (
               <p className='synonyms'>
                 <span>Syn:</span>
-                {def.synonyms.map((syn, index) => (
+                {def.synonyms.map((word, index) => (
                   <Fragment>
-                    <span key={index}>{syn}</span>
+                    <button
+                      onClick={e => {
+                        addWord({ word });
+                      }}
+                      key={index}
+                    >
+                      {word}
+                    </button>
                     <span>, </span>
                   </Fragment>
                 ))}
@@ -79,9 +86,16 @@ const Word = ({
             {def.synonyms && (
               <p className='synonyms'>
                 <span>Syn:</span>
-                {def.synonyms.map((syn, index) => (
+                {def.synonyms.map((word, index) => (
                   <Fragment>
-                    <span key={index}>{syn}</span>
+                    <button
+                      onClick={e => {
+                        addWord({ word });
+                      }}
+                      key={index}
+                    >
+                      {word}
+                    </button>
                     <span>, </span>
                   </Fragment>
                 ))}
@@ -107,9 +121,16 @@ const Word = ({
             {def.synonyms && (
               <p className='synonyms'>
                 <span>Syn:</span>
-                {def.synonyms.map((syn, index) => (
+                {def.synonyms.map((word, index) => (
                   <Fragment>
-                    <span key={index}>{syn}</span>
+                    <button
+                      onClick={e => {
+                        addWord({ word });
+                      }}
+                      key={index}
+                    >
+                      {word}
+                    </button>
                     <span>, </span>
                   </Fragment>
                 ))}
@@ -135,9 +156,16 @@ const Word = ({
             {def.synonyms && (
               <p className='synonyms'>
                 <span>Syn:</span>
-                {def.synonyms.map((syn, index) => (
+                {def.synonyms.map((word, index) => (
                   <Fragment>
-                    <span key={index}>{syn}</span>
+                    <button
+                      onClick={e => {
+                        addWord({ word });
+                      }}
+                      key={index}
+                    >
+                      {word}
+                    </button>
                     <span>, </span>
                   </Fragment>
                 ))}

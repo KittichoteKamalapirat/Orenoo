@@ -44,7 +44,11 @@ const WordSchema = new Schema({
   thai: Array,
   mnemonic: Array,
   synonym: Array,
-  example: Array
+  example: Array,
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = Word = mongoose.model('word', WordSchema);

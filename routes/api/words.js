@@ -264,31 +264,8 @@ router.post('/', auth, async (req, res) => {
 // @access    private
 router.get('/', auth, async (req, res) => {
   try {
-    const beforeShuffle = await Word.find({ user: req.user.id });
-
-    // randomize the order Fisher-Yates Shuffle
-    const shuffle = array => {
-      var currentIndex = array.length,
-        temporaryValue,
-        randomIndex;
-
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
-    };
-
-    const words = shuffle(beforeShuffle);
-
+    const words = await Word.find({ user: req.user.id });
+    words.sort((a, b) => new Date(b.date) - new Date(a.date));
     res.json(words);
   } catch (err) {
     console.error(err.message);

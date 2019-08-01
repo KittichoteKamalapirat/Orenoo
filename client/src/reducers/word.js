@@ -1,9 +1,17 @@
-import { ADD_WORD, GET_WORDS, GET_WORD, DELETE_WORD } from '../actions/types';
+import {
+  ADD_WORD,
+  GET_WORDS,
+  GET_WORD,
+  DELETE_WORD,
+  SHUFFLE_WORDS,
+  UNSHUFFLE_WORDS
+} from '../actions/types';
 
 const initialState = {
   words: [],
   word: null,
   loading: true,
+  shuffled: false,
   error: {}
 };
 export default function(state = initialState, action) {
@@ -35,6 +43,20 @@ export default function(state = initialState, action) {
         words: state.words.filter(word => word._id !== payload),
         loading: false
       };
+    case SHUFFLE_WORDS:
+      return {
+        ...state,
+        words: payload,
+        shuffled: true
+      };
+
+    case UNSHUFFLE_WORDS:
+      return {
+        ...state,
+        words: payload,
+        shuffled: false
+      };
+
     default:
       return state;
   }

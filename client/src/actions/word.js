@@ -1,4 +1,11 @@
-import { ADD_WORD, GET_WORDS, GET_WORD, DELETE_WORD } from './types';
+import {
+  ADD_WORD,
+  GET_WORDS,
+  GET_WORD,
+  DELETE_WORD,
+  SHUFFLE_WORDS,
+  UNSHUFFLE_WORDS
+} from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
 // Add a new word
@@ -60,6 +67,49 @@ export const deleteWord = (id, word) => async dispatch => {
       payload: id
     });
     dispatch(setAlert(`${word} deleted`, 'success'));
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const shuffle = words => dispatch => {
+  try {
+    // randomize the order Fisher-Yates Shuffle
+    const shuffleWords = array => {
+      var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      return array;
+    };
+    let shuffled = shuffleWords(words);
+    dispatch({
+      type: SHUFFLE_WORDS,
+      payload: shuffled
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const unshuffle = words => dispatch => {
+  try {
+    words.sort((a, b) => new Date(b.date) - new Date(a.date));
+    dispatch({
+      type: UNSHUFFLE_WORDS,
+      payload: words
+    });
   } catch (err) {
     console.error(err.message);
   }

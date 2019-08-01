@@ -1,24 +1,57 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './layout/Footer';
-const Landing = props => {
+
+import { useMediaPredicate } from 'react-media-hook';
+
+const Landing = () => {
+  const biggerThan700 = useMediaPredicate('(min-width: 700px)');
   return (
     <div className='landing'>
       <div className='header__bg' />
       <div className='header'>
-        <div className='content'>
-          <h1>Learn Smarter</h1>
-          <p className='lead'>
-            Orenoo helps non-native English students learn new vocabularies in a
-            more effective way.
-          </p>
-          <Link to='/register'>
-            <button className='button'>
-              Create Account &nbsp;
-              <i className='fas fa-angle-right' />
-            </button>
-          </Link>
-        </div>
+        {biggerThan700 ? (
+          <div className='pc-container'>
+            <div className='left'>
+              <div className='content'>
+                <h1>Learn Smarter</h1>
+                <p className='lead'>
+                  Orenoo helps non-native English students learn new
+                  vocabularies in a more effective way.
+                </p>
+
+                <Link to='/register'>
+                  <button className='button'>
+                    Create Account &nbsp;
+                    <i className='fas fa-angle-right' />
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className='right'>
+              <div className='phonevid'>
+                <img className='iphone' src='/iphone.png' alt='iphone mockup' />
+                <video autoPlay muted loop id='video' className='video'>
+                  <source src='/orenoo-vid.mov' type='video/mp4' />
+                </video>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className='phone-container'>
+            <h1>Learn Smarter</h1>
+            <p className='lead'>
+              Orenoo helps non-native English students learn new vocabularies in
+              a more effective way.
+            </p>
+            <Link to='/register'>
+              <button className='button'>
+                Create Account &nbsp;
+                <i className='fas fa-angle-right' />
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
 
       <div className='what'>
@@ -32,6 +65,7 @@ const Landing = props => {
           Get started by create your own account and make your own set of
           vocabularies.
         </p>
+
         <Link to='/register'>
           <span>Create Account &nbsp;</span>
           <i className='fas fa-angle-right' />

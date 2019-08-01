@@ -5,6 +5,16 @@
   font-size: 0.8rem;
 }
 
+.primary-color {
+  color: $primary-color;
+}
+.light-grey {
+  color: $light-grey;
+}
+
+.light-color {
+  color: $light-color;
+}
 .bg {
   &-primary {
     @include set-background($primary-color);

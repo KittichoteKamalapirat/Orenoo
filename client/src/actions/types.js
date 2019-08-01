@@ -19,3 +19,6 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 
 export const LOGOUT = 'LOGOUT';
 export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
+
+export const SHUFFLE_WORDS = 'SHUFFLE_WORDS';
+export const UNSHUFFLE_WORDS = 'UNSHUFFLE_WORDS';

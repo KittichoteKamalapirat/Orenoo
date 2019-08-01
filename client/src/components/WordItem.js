@@ -4,6 +4,18 @@ import { getWord, deleteWord } from '../actions/word';
 import { connect } from 'react-redux';
 
 const WordItem = ({ word: { word, _id }, getWord, deleteWord }) => {
+  // psedo code
+  // if(shuffle is true){ unshuffle ( order by time)}
+  // else shuffle (use the algorithm)
+  // useState = [shuffle, setShuffle]
+  // const toggleShuffle = words => {
+  //   if (shuffleState === true){
+
+  //   } else {
+  //     !shuffle etc
+  //   }
+  // }
+
   return (
     <div className='each-item'>
       <button className='word' onClick={e => getWord(_id)}>
