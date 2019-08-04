@@ -4,7 +4,17 @@ import { connect } from 'react-redux';
 import { addWord } from '../actions/word';
 const Word = ({
   word: {
-    word: { word, _id, dict, google, thai, mnemonic, synonym, example }
+    word: {
+      word,
+      _id,
+      dict,
+      google,
+      thai,
+      mnemonic,
+      synonym,
+      example,
+      inSentence
+    }
   },
   auth,
   addWord
@@ -288,6 +298,20 @@ const Word = ({
       <h2 className='example-color'>Sentence Example</h2>
 
       {example.slice(0, 8).map(sen => (
+        <div className='item'>
+          <hr />
+          <br />
+          <p>{sen}</p>
+          <br />
+        </div>
+      ))}
+    </div>
+
+    {/* Word in Sentence */}
+    <div className='example shadow-box'>
+      <h2 className='inSentence-color'>Word in Sentence</h2>
+
+      {inSentence.slice(0, 8).map(sen => (
         <div className='item'>
           <hr />
           <br />

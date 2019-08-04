@@ -45,6 +45,7 @@ const WordSchema = new Schema({
   mnemonic: Array,
   synonym: Array,
   example: Array,
+  inSentence: Array,
   date: {
     type: Date,
     default: Date.now

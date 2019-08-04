@@ -30,7 +30,8 @@ router.post('/', auth, async (req, res) => {
     thai: [],
     mnemonic: [],
     example: [],
-    synonym: []
+    synonym: [],
+    inSentence: []
   });
 
   // Scrape for dictionary information
@@ -201,7 +202,7 @@ router.post('/', auth, async (req, res) => {
 
     // Thai
     try {
-      const response = await axios(
+      const response = await axios.get(
         `https://dict.longdo.com/search/${req.body.word}`
       );
       const $ = cheerio.load(response.data);
@@ -232,8 +233,27 @@ router.post('/', auth, async (req, res) => {
       res.status(500).send('Server Error');
     }
 
+    // word in sentence
+    try {
+      const response = await axios.get(
+        `https://wordsinasentence.com/${req.body.word}-in-a-sentence/`
+      );
+      const $ = cheerio.load(response.data);
+      $('p').each((index, value) => {
+        if (index > 2) {
+          let sentence = $(value).text();
+          if (sentence.trim() !== '') {
+            newWord.inSentence.push(sentence);
+          }
+        }
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+
     // ____________________________________BEFORE SAVE____________________________________
-    // console.log(newWord);
+    console.log(newWord);
 
     if (
       newWord.dict.noun.length !== 0 ||
@@ -248,7 +268,8 @@ router.post('/', auth, async (req, res) => {
       newWord.thai.length !== 0 ||
       newWord.example.length !== 0 ||
       newWord.synonym.length !== 0 ||
-      newWord.mnemonic.length !== 0
+      newWord.mnemonic.length !== 0 ||
+      newWord.inSentence.length !== 0
     ) {
       const word = await newWord.save();
       res.json(word);
