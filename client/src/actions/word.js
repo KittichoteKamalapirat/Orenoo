@@ -4,7 +4,8 @@ import {
   GET_WORD,
   DELETE_WORD,
   SHUFFLE_WORDS,
-  UNSHUFFLE_WORDS
+  UNSHUFFLE_WORDS,
+  SPEAK
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -34,6 +35,7 @@ export const getWords = () => async dispatch => {
     const res = await axios.get('/api/words');
     console.log(res);
     console.log(res.data);
+    console.log('hihi');
     dispatch({
       type: GET_WORDS,
       payload: res.data
@@ -109,6 +111,53 @@ export const unshuffle = words => dispatch => {
     dispatch({
       type: UNSHUFFLE_WORDS,
       payload: words
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const speak = words => async dispatch => {
+  try {
+    const synth = window.speechSynthesis;
+
+    // if (synth.speaking) {
+    //   synth.pause();
+    // } else {
+    //   for (let i = 0; i < words.length; i++) {
+    //     const speakText = new SpeechSynthesisUtterance(words[i].word);
+    //     setTimeout(function() {
+    //       synth.speak(speakText);
+    //     }, 2000 * i);
+    //   }
+    // }
+
+    for (let i = 0; i < words.length; i++) {
+      const speakText = new SpeechSynthesisUtterance(words[i].word);
+      setTimeout(function() {
+        synth.speak(speakText);
+      }, 4000 * i);
+
+      setTimeout(function() {
+        synth.speak(speakText);
+      }, 4000 * i + 2000);
+    }
+
+    dispatch({
+      type: SPEAK
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const shutup = () => async dispatch => {
+  try {
+    // window.speechSynthesis.cancel();
+    window.speechSynthesis.pause();
+
+    dispatch({
+      type: SPEAK
     });
   } catch (err) {
     console.error(err.message);

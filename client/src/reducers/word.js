@@ -4,7 +4,8 @@ import {
   GET_WORD,
   DELETE_WORD,
   SHUFFLE_WORDS,
-  UNSHUFFLE_WORDS
+  UNSHUFFLE_WORDS,
+  SPEAK
 } from '../actions/types';
 
 const initialState = {
@@ -55,6 +56,11 @@ export default function(state = initialState, action) {
         ...state,
         words: payload,
         shuffled: false
+      };
+
+    case SPEAK:
+      return {
+        ...state
       };
 
     default:
