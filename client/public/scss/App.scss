@@ -150,6 +150,11 @@ button {
   grid-area: right-area;
   padding: 0.5rem;
   width: 17rem;
+  .speakIcon {
+    position: absolute;
+    top: 7rem;
+    right: 1rem;
+  }
   h1 {
     color: $primary-color;
   }

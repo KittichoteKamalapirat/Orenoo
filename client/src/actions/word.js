@@ -5,6 +5,7 @@ import {
   DELETE_WORD,
   SHUFFLE_WORDS,
   UNSHUFFLE_WORDS,
+  SAY,
   SPEAK
 } from './types';
 import axios from 'axios';
@@ -117,30 +118,23 @@ export const unshuffle = words => dispatch => {
   }
 };
 
+const synth = window.speechSynthesis;
+
 export const speak = words => async dispatch => {
   try {
-    const synth = window.speechSynthesis;
-
-    // if (synth.speaking) {
-    //   synth.pause();
-    // } else {
-    //   for (let i = 0; i < words.length; i++) {
-    //     const speakText = new SpeechSynthesisUtterance(words[i].word);
-    //     setTimeout(function() {
-    //       synth.speak(speakText);
-    //     }, 2000 * i);
-    //   }
-    // }
-
     for (let i = 0; i < words.length; i++) {
-      const speakText = new SpeechSynthesisUtterance(words[i].word);
       setTimeout(function() {
-        synth.speak(speakText);
+        const hello1 = new SpeechSynthesisUtterance('hello1');
+        const hello2 = new SpeechSynthesisUtterance('hello2');
+
+        synth.speak(hello1);
+        synth.speak(new SpeechSynthesisUtterance(words[i].word));
+        synth.speak(hello2);
       }, 4000 * i);
 
-      setTimeout(function() {
-        synth.speak(speakText);
-      }, 4000 * i + 2000);
+      // setTimeout(function() {
+      //   window.speechSynthesis.speak(speakText);
+      // }, 4000 * i + 2000);
     }
 
     dispatch({
@@ -153,11 +147,46 @@ export const speak = words => async dispatch => {
 
 export const shutup = () => async dispatch => {
   try {
-    // window.speechSynthesis.cancel();
-    window.speechSynthesis.pause();
+    synth.pause();
 
     dispatch({
       type: SPEAK
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const resume = () => async dispatch => {
+  try {
+    synth.resume();
+
+    dispatch({
+      type: SPEAK
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const cancel = () => async dispatch => {
+  try {
+    synth.cancel();
+
+    dispatch({
+      type: SPEAK
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const say = isPlaying => async dispatch => {
+  try {
+    const val = !isPlaying;
+    dispatch({
+      type: SAY,
+      payload: val
     });
   } catch (err) {
     console.error(err.message);

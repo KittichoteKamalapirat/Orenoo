@@ -5,7 +5,8 @@ import {
   DELETE_WORD,
   SHUFFLE_WORDS,
   UNSHUFFLE_WORDS,
-  SPEAK
+  SPEAK,
+  SAY
 } from '../actions/types';
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
   word: null,
   loading: true,
   shuffled: false,
-  error: {}
+  error: {},
+  isPlaying: false
 };
 export default function(state = initialState, action) {
   const { type, payload } = action;
@@ -62,7 +64,11 @@ export default function(state = initialState, action) {
       return {
         ...state
       };
-
+    case SAY:
+      return {
+        ...state,
+        isPlaying: payload
+      };
     default:
       return state;
   }
