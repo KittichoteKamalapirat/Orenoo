@@ -49,7 +49,7 @@ const Words = ({
                   <Fragment>
                     <Say speak={word.word} />
                     <Say speak='hello world' rate={0.6} volume={0} />
-                    <Say speak={word.word} />
+                    {word.inSentence[0] && <Say speak={word.inSentence[0]} />}
                     <Say speak='hello world' rate={0.6} volume={0} />
                   </Fragment>
                 ))}
