@@ -22,7 +22,6 @@ const Word = ({
   // dictionary.com
   <div>
     <h1>{word}</h1>
-
     {/* longdo.com */}
     {(auth.user._id === '5d3438a8bde148428871ee02' ||
       auth.user._id === '5d492b69bb05503aedbf2d48') && (
@@ -38,9 +37,7 @@ const Word = ({
         </ul>
       </div>
     )}
-
     {/* google */}
-
     {/* Noun */}
     <div className='google shadow-box'>
       <h2>Google API</h2>
@@ -185,7 +182,33 @@ const Word = ({
           </div>
         ))}
     </div>
+    {/* Word in Sentence */}
+    <div className='example shadow-box'>
+      <h2 className='inSentence-color'>Word in Sentence</h2>
 
+      {inSentence.slice(0, 6).map(sen => (
+        <div className='item'>
+          <hr />
+          <br />
+          <p>{sen}</p>
+          <br />
+        </div>
+      ))}
+    </div>
+    {/* mnemonic.com */}
+    <div className='mnemonic shadow-box'>
+      <h2 className='mnemonic-color'>Mnemonic Dictionary</h2>
+      {mnemonic.slice(0, 4).map(obj => (
+        <div className='item'>
+          <hr />
+          <br />
+          <p>{obj.content}</p>
+          <span className='like'>{obj.like}</span>
+          <span className='dislike'> {obj.dislike}</span>
+        </div>
+      ))}
+    </div>
+    {/* Dictionary.com */}
     <div className='dict shadow-box'>
       <h2 className='dictionary-color'>Dictionary.com</h2>
       {dict.noun.length > 0 && <h3>noun</h3>}
@@ -258,21 +281,6 @@ const Word = ({
           ))}
       </ul>
     </div>
-
-    {/* mnemonic.com */}
-    <div className='mnemonic shadow-box'>
-      <h2 className='mnemonic-color'>Mnemonic Dictionary</h2>
-      {mnemonic.slice(0, 4).map(obj => (
-        <div className='item'>
-          <hr />
-          <br />
-          <p>{obj.content}</p>
-          <span className='like'>{obj.like}</span>
-          <span className='dislike'> {obj.dislike}</span>
-        </div>
-      ))}
-    </div>
-
     {/* synonym */}
     <div className='synonym shadow-box'>
       <h2 className='thesaurus-color'>Thesauras.com</h2>
@@ -293,26 +301,11 @@ const Word = ({
         ))}
       </ul>
     </div>
-
     {/* Sentence Example */}
     <div className='example shadow-box'>
       <h2 className='example-color'>Sentence Example</h2>
 
-      {example.slice(0, 8).map(sen => (
-        <div className='item'>
-          <hr />
-          <br />
-          <p>{sen}</p>
-          <br />
-        </div>
-      ))}
-    </div>
-
-    {/* Word in Sentence */}
-    <div className='example shadow-box'>
-      <h2 className='inSentence-color'>Word in Sentence</h2>
-
-      {inSentence.slice(0, 8).map(sen => (
+      {example.slice(0, 4).map(sen => (
         <div className='item'>
           <hr />
           <br />
