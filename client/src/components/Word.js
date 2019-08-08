@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addWord } from '../actions/word';
+import { SayButton } from 'react-say';
 const Word = ({
   word: {
     word: {
@@ -21,7 +22,14 @@ const Word = ({
 }) => (
   // dictionary.com
   <div>
-    <h1>{word}</h1>
+    <h1>
+      {word}
+      {'  '}
+      <SayButton onClick={event => console.log(event)} speak={word}>
+        <i class='fas fa-volume-up' />
+      </SayButton>
+    </h1>
+
     {/* longdo.com */}
     {(auth.user._id === '5d3438a8bde148428871ee02' ||
       auth.user._id === '5d492b69bb05503aedbf2d48') && (

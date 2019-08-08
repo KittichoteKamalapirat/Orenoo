@@ -181,12 +181,23 @@ export const cancel = () => async dispatch => {
   }
 };
 
-export const say = isPlaying => async dispatch => {
+export const sayAll = isPlaying => async dispatch => {
   try {
     const val = !isPlaying;
     dispatch({
       type: SAY,
       payload: val
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const sayOne = word => async dispatch => {
+  try {
+    dispatch({
+      type: SAY,
+      payload: word
     });
   } catch (err) {
     console.error(err.message);
