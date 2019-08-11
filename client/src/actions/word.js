@@ -6,7 +6,8 @@ import {
   SHUFFLE_WORDS,
   UNSHUFFLE_WORDS,
   SAY,
-  SPEAK
+  SPEAK,
+  TOGGLE_FLAG
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -47,14 +48,11 @@ export const getWords = () => async dispatch => {
 };
 
 // get all the words
-export const getWord = id => async dispatch => {
+export const getWord = _id => async dispatch => {
   try {
-    const res = await axios.get(`/api/words/${id}`);
-    console.log(res);
-    console.log(res.data);
     dispatch({
       type: GET_WORD,
-      payload: res.data
+      payload: _id
     });
   } catch (err) {
     console.error(err.message);
@@ -198,6 +196,18 @@ export const sayOne = word => async dispatch => {
     dispatch({
       type: SAY,
       payload: word
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const toggleFlag = id => async dispatch => {
+  try {
+    const res = await axios.put(`/api/words/toggleflag/${id}`);
+    dispatch({
+      type: TOGGLE_FLAG,
+      payload: { id, flagged: res.data }
     });
   } catch (err) {
     console.error(err.message);

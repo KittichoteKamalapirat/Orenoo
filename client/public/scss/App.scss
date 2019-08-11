@@ -123,10 +123,13 @@ button {
     top: 1rem;
     .each-item {
       line-height: 3rem;
-
-      .word {
+      .not-flagged {
         font-size: 1rem;
         color: $dark-color;
+      }
+      .flagged {
+        font-size: 1rem;
+        color: $primary-color;
       }
       .remove-word {
         position: absolute;
@@ -181,6 +184,10 @@ button {
   }
   h3 {
     font-style: italic;
+  }
+  .def {
+    border-bottom: 1px solid $grey-color;
+    padding: 1rem 0;
   }
   .example {
     color: $grey-color;
@@ -571,4 +578,8 @@ button {
   button {
     font-size: 1.2rem;
   }
+}
+
+.yellow {
+  color: #fcee21;
 }

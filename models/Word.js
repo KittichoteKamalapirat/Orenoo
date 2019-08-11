@@ -10,6 +10,10 @@ const WordSchema = new Schema({
     required: true,
     unique: true
   },
+  flagged: {
+    type: Boolean,
+    default: false
+  },
   dict: {
     noun: {
       type: Array

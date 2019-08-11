@@ -6,7 +6,8 @@ import {
   SHUFFLE_WORDS,
   UNSHUFFLE_WORDS,
   SPEAK,
-  SAY
+  SAY,
+  TOGGLE_FLAG
 } from '../actions/types';
 
 const initialState = {
@@ -36,7 +37,7 @@ export default function(state = initialState, action) {
     case GET_WORD:
       return {
         ...state,
-        word: payload,
+        word: state.words.filter(word => word._id === payload)[0],
         loading: false
       };
 
@@ -68,6 +69,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isPlaying: payload
+      };
+    case TOGGLE_FLAG:
+      return {
+        ...state,
+        word: { ...state.word, flagged: payload.flagged },
+        loading: false
       };
     default:
       return state;

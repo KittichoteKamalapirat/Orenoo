@@ -336,4 +336,20 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
+// @ route    PUT api/words/toggleflag/:id
+// @desc      Flag and Unflag a word (toggle)
+// @access    Private
+router.put('/toggleflag/:id', auth, async (req, res) => {
+  try {
+    let word = await Word.findById(req.params.id);
+    word.flagged = !word.flagged;
+    await word.save();
+    console.log(word.flagged);
+    return res.json(word.flagged);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

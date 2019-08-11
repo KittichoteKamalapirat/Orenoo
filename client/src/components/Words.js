@@ -49,7 +49,7 @@ const Words = ({
                     sayAll(isPlaying);
                   }}
                 >
-                  <i class='fas fa-volume-mute' />
+                  <i className='fas fa-volume-mute' />
                   <p className='small'>All</p>
                 </button>
 
@@ -131,7 +131,7 @@ const Words = ({
                     sayAll(isPlaying);
                   }}
                 >
-                  <i class='fas fa-volume-up' />
+                  <i className='fas fa-volume-up' />
                   <p className='small'>All</p>
                 </button>
               </Fragment>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getWord, deleteWord } from '../actions/word';
 import { connect } from 'react-redux';
 
-const WordItem = ({ word: { word, _id }, getWord, deleteWord }) => {
+const WordItem = ({ word: { word, _id, flagged }, getWord, deleteWord }) => {
   // psedo code
   // if(shuffle is true){ unshuffle ( order by time)}
   // else shuffle (use the algorithm)
@@ -18,9 +18,16 @@ const WordItem = ({ word: { word, _id }, getWord, deleteWord }) => {
 
   return (
     <div className='each-item'>
-      <button className='word' onClick={e => getWord(_id)}>
-        {word}
-      </button>
+      {flagged ? (
+        <button className='flagged' onClick={e => getWord(_id)}>
+          {word}
+        </button>
+      ) : (
+        <button className='not-flagged' onClick={e => getWord(_id)}>
+          {word}
+        </button>
+      )}
+
       <button className='remove-word' onClick={e => deleteWord(_id, word)}>
         +
       </button>

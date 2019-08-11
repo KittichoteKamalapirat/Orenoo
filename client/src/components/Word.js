@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addWord } from '../actions/word';
+import { addWord, toggleFlag } from '../actions/word';
 import { SayButton } from 'react-say';
 const Word = ({
   word: {
     word: {
       word,
       _id,
+      flagged,
       dict,
       google,
       thai,
@@ -18,18 +19,27 @@ const Word = ({
     }
   },
   auth,
-  addWord
+  addWord,
+  toggleFlag
 }) => (
   // dictionary.com
   <div>
-    <h1>
-      {word}
-      {'  '}
-      <SayButton onClick={event => console.log(event)} speak={word}>
-        <i class='fas fa-volume-up' />
-      </SayButton>
-    </h1>
-
+    <h1>{word}</h1>
+    <SayButton onClick={event => console.log(event)} speak={word}>
+      <i class='fas fa-volume-up' />
+    </SayButton>
+    &nbsp;&nbsp;
+    <button
+      onClick={e => {
+        toggleFlag(_id);
+      }}
+    >
+      {flagged ? (
+        <i class='fas fa-star primary-color' />
+      ) : (
+        <i class='fas fa-star light-grey' />
+      )}
+    </button>
     {/* longdo.com */}
     {(auth.user._id === '5d3438a8bde148428871ee02' ||
       auth.user._id === '5d492b69bb05503aedbf2d48') && (
@@ -328,7 +338,8 @@ const Word = ({
 Word.propTypes = {
   word: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  addWord: PropTypes.func.isRequired
+  addWord: PropTypes.func.isRequired,
+  toggleFlag: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -337,5 +348,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { addWord }
+  { addWord, toggleFlag }
 )(Word);
