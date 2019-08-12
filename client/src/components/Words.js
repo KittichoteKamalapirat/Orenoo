@@ -41,6 +41,9 @@ const Words = ({
             </div>
           </div>
           <div className='right-area'>
+            <div className='alert-container'>
+              <Alert />
+            </div>
             {isPlaying ? (
               <Fragment>
                 <button
@@ -136,8 +139,6 @@ const Words = ({
                 </button>
               </Fragment>
             )}
-
-            <Alert />
             {!word ? <h1>select word</h1> : <Word />}
           </div>
         </div>
