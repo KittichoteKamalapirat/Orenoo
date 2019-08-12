@@ -42,7 +42,8 @@ const Word = ({
     </button>
     {/* longdo.com */}
     {(auth.user._id === '5d3438a8bde148428871ee02' ||
-      auth.user._id === '5d492b69bb05503aedbf2d48') && (
+      auth.user._id === '5d492b69bb05503aedbf2d48' ||
+      auth.user._id === '5d50c4271eefdb76d3eed49d') && (
       <div className='thai shadow-box'>
         <h2 className='longdo-color'>Longdo.com</h2>
         <ul>
