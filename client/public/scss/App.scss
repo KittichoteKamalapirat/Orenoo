@@ -153,11 +153,29 @@ button {
   grid-area: right-area;
   padding: 0.5rem;
   width: 17rem;
-  .speakIcon {
+
+  .say-all {
     position: absolute;
-    top: 7rem;
-    right: 1rem;
+    top: 9rem;
+    right: 2rem;
   }
+  .say-flagged {
+    position: absolute;
+    top: 9rem;
+    right: 6rem;
+  }
+  .say-one {
+    position: absolute;
+    top: 9rem;
+    right: 11rem;
+  }
+
+  .fa-star {
+    position: relative;
+    left: 0.5rem;
+    bottom: 0.2rem;
+  }
+
   h1 {
     color: $primary-color;
   }
@@ -591,4 +609,25 @@ button {
 
 .yellow {
   color: #fcee21;
+}
+.say-all {
+  position: absolute;
+  top: 9rem;
+  right: 8rem;
+}
+.say-flagged {
+  position: absolute;
+  top: 9rem;
+  right: 12rem;
+}
+.say-one {
+  position: absolute;
+  top: 9rem;
+  right: 17rem;
+}
+
+.fa-star {
+  position: relative;
+  left: 0.5rem;
+  bottom: 0.2rem;
 }

@@ -6,7 +6,8 @@ import {
   SHUFFLE_WORDS,
   UNSHUFFLE_WORDS,
   SPEAK,
-  SAY,
+  SAY_ALL,
+  SAY_FLAGGED,
   TOGGLE_FLAG
 } from '../actions/types';
 
@@ -16,7 +17,8 @@ const initialState = {
   loading: true,
   shuffled: false,
   error: {},
-  isPlaying: false
+  sayingAll: false,
+  sayingFlagged: false
 };
 export default function(state = initialState, action) {
   const { type, payload } = action;
@@ -65,11 +67,18 @@ export default function(state = initialState, action) {
       return {
         ...state
       };
-    case SAY:
+    case SAY_ALL:
       return {
         ...state,
-        isPlaying: payload
+        sayingAll: payload
       };
+
+    case SAY_FLAGGED:
+      return {
+        ...state,
+        sayingFlagged: payload
+      };
+
     case TOGGLE_FLAG:
       return {
         ...state,

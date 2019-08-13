@@ -15,7 +15,9 @@ export const USER_LOADED = 'USER_LOADED';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
 export const SPEAK = 'SPEAK';
-export const SAY = 'SAY';
+export const SAY_ALL = 'SAY_ALL';
+export const SAY_FLAGGED = 'SAY_FLAGGED';
+export const SAY_ONE = 'SAY_ONE';
 
 export const TOGGLE_FLAG = 'TOGGLE_FLAG';
 

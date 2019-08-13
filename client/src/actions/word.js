@@ -5,7 +5,9 @@ import {
   DELETE_WORD,
   SHUFFLE_WORDS,
   UNSHUFFLE_WORDS,
-  SAY,
+  SAY_ALL,
+  SAY_FLAGGED,
+  SAY_ONE,
   SPEAK,
   TOGGLE_FLAG
 } from './types';
@@ -179,11 +181,23 @@ export const cancel = () => async dispatch => {
   }
 };
 
-export const sayAll = isPlaying => async dispatch => {
+export const sayAll = sayingAll => async dispatch => {
   try {
-    const val = !isPlaying;
+    const val = !sayingAll;
     dispatch({
-      type: SAY,
+      type: SAY_ALL,
+      payload: val
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const sayFlagged = sayingFlagged => async dispatch => {
+  try {
+    const val = !sayingFlagged;
+    dispatch({
+      type: SAY_FLAGGED,
       payload: val
     });
   } catch (err) {
@@ -194,7 +208,7 @@ export const sayAll = isPlaying => async dispatch => {
 export const sayOne = word => async dispatch => {
   try {
     dispatch({
-      type: SAY,
+      type: SAY_ONE,
       payload: word
     });
   } catch (err) {

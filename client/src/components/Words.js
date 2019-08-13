@@ -7,7 +7,8 @@ import {
   shutup,
   resume,
   cancel,
-  sayAll
+  sayAll,
+  sayFlagged
 } from '../actions/word';
 import WordItem from './WordItem';
 import Word from './Word';
@@ -16,13 +17,14 @@ import Alert from './layout/Alert';
 import Say from 'react-say';
 
 const Words = ({
-  word: { words, word, loading, isPlaying },
+  word: { words, word, loading, sayingAll, sayingFlagged },
   getWords,
   speak,
   shutup,
   resume,
   cancel,
-  sayAll
+  sayAll,
+  sayFlagged
 }) => {
   useEffect(() => {
     getWords();
@@ -44,12 +46,13 @@ const Words = ({
             <div className='alert-container'>
               <Alert />
             </div>
-            {isPlaying ? (
-              <Fragment>
+
+            {sayingAll ? (
+              <div className='say-all'>
                 <button
                   className='speakIcon'
                   onClick={e => {
-                    sayAll(isPlaying);
+                    sayAll(sayingAll);
                   }}
                 >
                   <i className='fas fa-volume-mute' />
@@ -125,20 +128,119 @@ const Words = ({
                     <Say speak='hello world' rate={0.6} volume={0} />
                   </Fragment>
                 ))}
-              </Fragment>
+              </div>
             ) : (
-              <Fragment>
+              <div className='say-all'>
                 <button
                   className='speakIcon'
                   onClick={e => {
-                    sayAll(isPlaying);
+                    sayAll(sayingAll);
                   }}
                 >
                   <i className='fas fa-volume-up' />
                   <p className='small'>All</p>
                 </button>
-              </Fragment>
+              </div>
             )}
+
+            {sayingFlagged ? (
+              <div className='say-flagged'>
+                <button
+                  className='speakIcon'
+                  onClick={e => {
+                    sayFlagged(sayingFlagged);
+                  }}
+                >
+                  <i className='fas fa-volume-mute' />
+                  <p className='small'>Flagged</p>
+                </button>
+
+                {words
+                  .filter(word => word.flagged === true)
+                  .map(word => (
+                    <Fragment>
+                      <Say speak={word.word} />
+                      <Say speak='hello world' rate={0.6} volume={0} />
+
+                      {word.google.noun.length > 0 && (
+                        <Fragment>
+                          <Say
+                            speak={
+                              word.word +
+                              ' as noun means ' +
+                              word.google.noun[0].definition
+                            }
+                          />
+                          <Say speak='hello world' rate={0.6} volume={0} />
+                        </Fragment>
+                      )}
+
+                      {word.google.verb.length > 0 && (
+                        <Fragment>
+                          <Say
+                            speak={
+                              word.word +
+                              ' as verb means ' +
+                              word.google.verb[0].definition
+                            }
+                          />
+                          <Say speak='hello world' rate={0.6} volume={0} />
+                        </Fragment>
+                      )}
+
+                      {word.google.adjective.length > 0 && (
+                        <Fragment>
+                          <Say
+                            speak={
+                              word.word +
+                              ' as adjective means ' +
+                              word.google.adjective[0].definition
+                            }
+                          />
+                          <Say speak='hello world' rate={0.6} volume={0} />
+                        </Fragment>
+                      )}
+
+                      {word.google.adverb.length > 0 && (
+                        <Fragment>
+                          <Say
+                            speak={
+                              word.word +
+                              ' as adverb means ' +
+                              word.google.adverb[0].definition
+                            }
+                          />
+
+                          <Say speak='hello world' rate={0.6} volume={0} />
+                        </Fragment>
+                      )}
+                      <Say speak='hello world' rate={0.6} volume={0} />
+                      {word.inSentence[0] && (
+                        <Say
+                          speak={word.inSentence[0].substring(
+                            0,
+                            word.inSentence[0].indexOf('.')
+                          )}
+                        />
+                      )}
+                      <Say speak='hello world' rate={0.6} volume={0} />
+                    </Fragment>
+                  ))}
+              </div>
+            ) : (
+              <div className='say-flagged'>
+                <button
+                  className='speakIcon'
+                  onClick={e => {
+                    sayFlagged(sayingFlagged);
+                  }}
+                >
+                  <i className='fas fa-volume-up' />
+                  <p className='small'>Flagged</p>
+                </button>
+              </div>
+            )}
+
             {!word ? <h1>select word</h1> : <Word />}
           </div>
         </div>
@@ -153,7 +255,8 @@ Words.propTypes = {
   shutup: PropTypes.func.isRequired,
   resume: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
-  sayAll: PropTypes.func.isRequired
+  sayAll: PropTypes.func.isRequired,
+  sayFlagged: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -162,5 +265,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getWords, speak, shutup, resume, cancel, sayAll }
+  { getWords, speak, shutup, resume, cancel, sayAll, sayFlagged }
 )(Words);

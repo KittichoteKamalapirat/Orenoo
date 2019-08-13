@@ -25,9 +25,16 @@ const Word = ({
   // dictionary.com
   <div>
     <h1>{word}</h1>
-    <SayButton onClick={event => console.log(event)} speak={word}>
-      <i class='fas fa-volume-up' />
-    </SayButton>
+    <div className='say-one'>
+      <SayButton
+        className='say-one'
+        onClick={event => console.log(event)}
+        speak={word}
+      >
+        <i className=' fas fa-volume-up' />
+        <p className='small'>One</p>
+      </SayButton>
+    </div>
     &nbsp;&nbsp;
     <button
       onClick={e => {
