@@ -11,115 +11,121 @@ const cheerio = require('cheerio');
 // @desc      Add a new word
 // @access    Private
 router.post('/', auth, async (req, res) => {
-  let newWord = new Word({
-    user: req.user.id,
-    word: req.body.word,
-    dict: {
-      noun: [],
-      verb: [],
-      adjective: [],
-      adverb: [],
-      idioms: []
-    },
-    google: {
-      noun: [],
-      verb: [],
-      adjective: [],
-      adverb: []
-    },
-    thai: [],
-    mnemonic: [],
-    example: [],
-    synonym: [],
-    inSentence: []
-  });
-
-  // Scrape for dictionary information
-
-  // Google Dictionary
   try {
-    const response = await axios.get(
-      `https://googledictionaryapi.eu-gb.mybluemix.net/?define=${
-        req.body.word
-      }&lang=en`
-    );
-    const meaning = response.data[0].meaning;
+    let newWord = new Word({
+      user: req.user.id,
+      word: req.body.word,
+      dict: {
+        noun: [],
+        verb: [],
+        adjective: [],
+        adverb: [],
+        idioms: []
+      },
+      google: {
+        noun: [],
+        verb: [],
+        adjective: [],
+        adverb: []
+      },
+      thai: [],
+      mnemonic: [],
+      example: [],
+      synonym: [],
+      inSentence: [],
+      youdao: []
+    });
 
-    if (meaning.noun) {
-      newWord.google.noun = meaning.noun;
-    }
-    if (meaning.verb) {
-      newWord.google.verb = meaning.verb;
-    }
+    // Scrape for dictionary information
 
-    if (meaning.adjective) {
-      newWord.google.adjective = meaning.adjective;
-    }
+    // Google Dictionary
+    try {
+      const response = await axios.get(
+        `https://googledictionaryapi.eu-gb.mybluemix.net/?define=${
+          req.body.word
+        }&lang=en`
+      );
+      const meaning = response.data[0].meaning;
 
-    if (meaning.adverb) {
-      newWord.google.adverb = meaning.adverb;
-    }
-  } catch (err) {
-    console.log(err.message);
-  }
-
-  // Dictionary.com;
-  try {
-    await request(
-      `https://www.dictionary.com/browse/${req.body.word}`,
-      async (error, response, html) => {
-        if (!error && response.statusCode === 200) {
-          const $ = cheerio.load(html);
-          const dict = $('.css-pnw38j').each((index, value) => {
-            let speech = $(value)
-              .find('h3.css-sdwj8v')
-              .text()
-              .substring(0, 4);
-            if (/\s/.test(speech)) {
-              speech = speech.substring(0, 4);
-            }
-            // console.log(speech);
-            switch (speech) {
-              case 'noun':
-                $(value)
-                  .find('.e1q3nk1v3')
-                  .each((index, value) => {
-                    newWord.dict.noun.push($(value).text());
-                  });
-                break;
-              case 'verb':
-                $(value)
-                  .find('.e1q3nk1v3')
-                  .each((index, value) => {
-                    newWord.dict.verb.push($(value).text());
-                  });
-                break;
-              case 'adje':
-                $(value)
-                  .find('.e1q3nk1v3')
-                  .each((index, value) => {
-                    newWord.dict.adjective.push($(value).text());
-                  });
-                break;
-              case 'adve':
-                $(value)
-                  .find('.e1q3nk1v3')
-                  .each((index, value) => {
-                    newWord.dict.adverb.push($(value).text());
-                  });
-                break;
-              case 'Idio':
-                $(value)
-                  .find('.e1q3nk1v3')
-                  .each((index, value) => {
-                    newWord.dict.idioms.push($(value).text());
-                  });
-                break;
-            }
-          });
-        }
+      if (meaning.noun) {
+        newWord.google.noun = meaning.noun;
       }
-    );
+      if (meaning.verb) {
+        newWord.google.verb = meaning.verb;
+      }
+
+      if (meaning.adjective) {
+        newWord.google.adjective = meaning.adjective;
+      }
+
+      if (meaning.adverb) {
+        newWord.google.adverb = meaning.adverb;
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+
+    // Dictionary.com;
+    try {
+      await request(
+        `https://www.dictionary.com/browse/${req.body.word}`,
+        async (error, response, html) => {
+          if (!error && response.statusCode === 200) {
+            const $ = cheerio.load(html);
+            const dict = $('.css-pnw38j').each((index, value) => {
+              let speech = $(value)
+                .find('h3.css-sdwj8v')
+                .text()
+                .substring(0, 4);
+              if (/\s/.test(speech)) {
+                speech = speech.substring(0, 4);
+              }
+              // console.log(speech);
+              switch (speech) {
+                case 'noun':
+                  $(value)
+                    .find('.e1q3nk1v3')
+                    .each((index, value) => {
+                      newWord.dict.noun.push($(value).text());
+                    });
+                  break;
+                case 'verb':
+                  $(value)
+                    .find('.e1q3nk1v3')
+                    .each((index, value) => {
+                      newWord.dict.verb.push($(value).text());
+                    });
+                  break;
+                case 'adje':
+                  $(value)
+                    .find('.e1q3nk1v3')
+                    .each((index, value) => {
+                      newWord.dict.adjective.push($(value).text());
+                    });
+                  break;
+                case 'adve':
+                  $(value)
+                    .find('.e1q3nk1v3')
+                    .each((index, value) => {
+                      newWord.dict.adverb.push($(value).text());
+                    });
+                  break;
+                case 'Idio':
+                  $(value)
+                    .find('.e1q3nk1v3')
+                    .each((index, value) => {
+                      newWord.dict.idioms.push($(value).text());
+                    });
+                  break;
+              }
+            });
+          }
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send('Server Error');
+    }
 
     // Synonym
     try {
@@ -139,7 +145,7 @@ router.post('/', auth, async (req, res) => {
       }
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      // res.status(500).send('Server Error');
     }
     //menmonic
     try {
@@ -171,7 +177,7 @@ router.post('/', auth, async (req, res) => {
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      // res.status(500).send('Server Error');
     }
 
     // Sentence Example
@@ -182,22 +188,26 @@ router.post('/', auth, async (req, res) => {
       const $ = cheerio.load(response.data);
 
       $('.voting_li').each((index, value) => {
-        const content = $(value)
-          .find('.li_content')
-          .text()
-          .replace(/\s\s+/g, '');
+        if (index < 8) {
+          const content = $(value)
+            .find('.li_content')
+            .text()
+            .replace(/\s\s+/g, '');
 
-        newWord.example.push(content);
+          newWord.example.push(content);
+        }
       });
       $('.sentence.component').each((index, value) => {
-        const content = $(value)
-          .text()
-          .replace(/\s\s+/g, '');
-        newWord.example.push(content);
+        if (index < 8) {
+          const content = $(value)
+            .text()
+            .replace(/\s\s+/g, '');
+          newWord.example.push(content);
+        }
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      // res.status(500).send('Server Error');
     }
 
     // Thai
@@ -230,7 +240,7 @@ router.post('/', auth, async (req, res) => {
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      // res.status(500).send('Server Error');
     }
 
     // word in sentence
@@ -249,7 +259,28 @@ router.post('/', auth, async (req, res) => {
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      // res.status(500).send('Server Error');
+    }
+
+    //youdao chinese Dictionary
+
+    try {
+      const response = await axios.get(
+        `http://dict.youdao.com/w/${req.body.word}`
+      );
+      const $ = cheerio.load(response.data);
+
+      $('.trans-container')
+        .first()
+        .find('ul li')
+        .each((index, value) => {
+          const list = $(value).text();
+          newWord.youdao.push(list);
+          console.log(newWord.youdao);
+        });
+    } catch (err) {
+      console.error(err.message);
+      // res.status(500).send('Server Error');
     }
 
     // ____________________________________BEFORE SAVE____________________________________
@@ -344,7 +375,6 @@ router.put('/toggleflag/:id', auth, async (req, res) => {
     let word = await Word.findById(req.params.id);
     word.flagged = !word.flagged;
     await word.save();
-    console.log(word.flagged);
     return res.json(word.flagged);
   } catch (err) {
     console.error(err.message);
