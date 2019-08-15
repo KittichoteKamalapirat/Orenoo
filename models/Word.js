@@ -50,6 +50,7 @@ const WordSchema = new Schema({
   synonym: Array,
   example: Array,
   inSentence: Array,
+  youdao: Array,
   date: {
     type: Date,
     default: Date.now

@@ -15,14 +15,14 @@ const Word = ({
       mnemonic,
       synonym,
       example,
-      inSentence
+      inSentence,
+      youdao
     }
   },
   auth,
   addWord,
   toggleFlag
 }) => (
-  // dictionary.com
   <div>
     <h1>{word}</h1>
     <div className='say-one'>
@@ -50,6 +50,8 @@ const Word = ({
     {/* longdo.com */}
     {(auth.user._id === '5d3438a8bde148428871ee02' ||
       auth.user._id === '5d492b69bb05503aedbf2d48' ||
+      auth.user._id === '5d50c4271eefdb76d3eed49d' ||
+      auth.user._id === '5d5381c9cd025615fd45b78c' ||
       auth.user._id === '5d50c4271eefdb76d3eed49d') && (
       <div className='thai shadow-box'>
         <h2 className='longdo-color'>Longdo.com</h2>
@@ -59,6 +61,17 @@ const Word = ({
               <b>{obj.word}</b>
               <span>{obj.meaning}</span>
             </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    {/* youdao */}
+    {auth.user._id === '5d54daa8c9fa062f7b953343' && (
+      <div className='youdao shadow-box'>
+        <h2 className='youdao-color'>youdao.com</h2>
+        <ul>
+          {youdao.map(arr => (
+            <li>{arr}</li>
           ))}
         </ul>
       </div>
