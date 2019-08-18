@@ -29,3 +29,8 @@ export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
 
 export const SHUFFLE_WORDS = 'SHUFFLE_WORDS';
 export const UNSHUFFLE_WORDS = 'UNSHUFFLE_WORDS';
+
+export const CREATE_DECK = 'CREATE_DECK';
+export const GET_DECKS = 'GET_DECKS';
+export const GET_DECK = 'GET_DECK';
+export const REMOVE_DECK = 'REMOVE_DECK';

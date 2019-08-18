@@ -5,6 +5,11 @@ const WordSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
+  deck: {
+    type: Schema.Types.ObjectId,
+    ref: 'decks'
+  },
+
   word: {
     type: String,
     required: true,

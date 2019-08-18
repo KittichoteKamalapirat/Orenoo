@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -15,6 +15,7 @@ app.use(express.json({ extended: false }));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/words', require('./routes/api/words'));
+app.use('/api/decks', require('./routes/api/decks'));
 app.use('/', require('./routes/api/mail'));
 
 // Serve static asets in production
