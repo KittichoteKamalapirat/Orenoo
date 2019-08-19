@@ -2,6 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Words from './components/Words';
+import Decks from './components/decks/Decks';
+import Deck from './components/decks/Deck';
 import Navbar from './components/layout/Navbar';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -31,6 +33,8 @@ function App() {
           <div className='container'>
             <Switch>
               <PrivateRoute exact path='/' component={Words} />
+              <PrivateRoute exact path='/decks' component={Decks} />
+              <PrivateRoute exact path='/decks/:id' component={Deck} />
               <Route exact path='/landing' component={Landing} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />

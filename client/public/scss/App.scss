@@ -1,5 +1,6 @@
 @import 'config';
 @import 'utilities';
+@import 'hamburgers';
 
 * {
   box-sizing: border-box;
@@ -45,19 +46,33 @@ button {
   left: 0;
   width: 100%;
   box-shadow: 0px 0px 2px 1px #e6e6e6;
-  .guest {
-    display: flex;
+  .nav {
     background-color: #fff;
+
+    .fix-content {
+      display: flex;
+      justify-content: space-between;
+    }
     #logo {
       margin: 0.5rem 1rem;
     }
-    ul {
+    .hide {
+      display: none;
+    }
+    .flex {
       display: flex;
+    }
+    .block {
+      display: block;
+    }
+    ul {
       width: 100%;
-      justify-content: flex-end;
-      margin: 1rem;
+      font-size: 1.2rem;
+
+      text-align: center;
+      padding: 1rem;
       li {
-        margin: 0 0.5rem;
+        margin: 3rem;
       }
       a {
         text-decoration: none;
@@ -467,10 +482,32 @@ button {
     left: 0;
     width: 100%;
     box-shadow: 0px 0px 2px 1px #e6e6e6;
-    .auth,
-    .guest {
+    .nav {
       margin: 0 auto;
       padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      .hamburger {
+        display: none;
+      }
+      .hide {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      ul {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.5rem;
+        li {
+          margin: 0.5rem;
+        }
+        a {
+          text-decoration: none;
+          color: $dark-color;
+          font-weight: 500;
+        }
+      }
     }
   }
   .container {

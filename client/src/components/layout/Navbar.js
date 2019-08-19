@@ -1,69 +1,98 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import WordForm from '../WordForm';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
-import { shuffle, unshuffle } from '../../actions/word';
 
-const Navbar = ({
-  word,
-  auth: { isAuthenticated, loading },
-  logout,
-  shuffle,
-  unshuffle
-}) => {
+const Navbar = ({ word, auth: { isAuthenticated, loading }, logout }) => {
+  const [isActive, setIsActive] = useState(false);
+  const toggle = () => setIsActive(!isActive);
+
   const authLinks = (
-    <div className='auth'>
-      <WordForm />
-      {word.shuffled ? (
+    <div className='nav'>
+      <div className='fix-content'>
+        <Link to='/landing' style={{ textDecoration: 'none' }}>
+          <h1 id='logo' onClick={e => setIsActive(false)}>
+            Orenoo
+          </h1>
+        </Link>
         <button
-          onClick={e => {
-            unshuffle(word.words);
-          }}
+          onClick={e => toggle()}
+          className={
+            isActive
+              ? 'hamburger hamburger--collapse is-active'
+              : 'hamburger hamburger--collapse'
+          }
+          type='button'
         >
-          <i className='fas fa-random primary-color' />
+          <span className='hamburger-box'>
+            <span className='hamburger-inner' />
+          </span>
         </button>
-      ) : (
-        <button
-          onClick={e => {
-            shuffle(word.words);
-          }}
-        >
-          <i className='fas fa-random light-grey' />
-        </button>
-      )}
+      </div>
 
-      <ul>
+      <ul className={isActive ? 'block' : 'hide'}>
         <li>
-          <Link to='/' style={{ textDecoration: 'none' }}>
-            <h1 id='logo'>Orenoo</h1>
+          <Link onClick={e => setIsActive(false)} to='/decks'>
+            Back To Decks
           </Link>
-
-          <a onClick={logout} href='/landing'>
-            {'  '}
-            <span className='hide-sm'>Log out</span>
-          </a>
         </li>
 
-        <li />
+        <li>
+          <button onClick={logout} href='/landing'>
+            <span className='hide-sm'>Log out</span>
+          </button>
+        </li>
+
+        <li>
+          <Link onClick={e => setIsActive(false)} to='/contact'>
+            Contact Us
+          </Link>
+        </li>
       </ul>
     </div>
   );
 
   const guestLinks = (
-    <div className='guest'>
-      <Link to='/landing' style={{ textDecoration: 'none' }}>
-        <h1 id='logo'>Orenoo</h1>
-      </Link>
+    <div className='nav'>
+      <div className='fix-content'>
+        <Link to='/landing' style={{ textDecoration: 'none' }}>
+          <h1 id='logo' onClick={e => setIsActive(false)}>
+            Orenoo
+          </h1>
+        </Link>
+        <button
+          onClick={e => toggle()}
+          className={
+            isActive
+              ? 'hamburger hamburger--collapse is-active'
+              : 'hamburger hamburger--collapse'
+          }
+          type='button'
+        >
+          <span className='hamburger-box'>
+            <span className='hamburger-inner' />
+          </span>
+        </button>
+      </div>
+      <ul className={isActive ? 'block' : 'hide'}>
+        <li>
+          <Link onClick={e => setIsActive(false)} to='/register'>
+            Sign up
+          </Link>
+        </li>
 
-      <ul>
-        <Link to='/register'>
-          <li>Sign up</li>
-        </Link>
-        <Link to='/login'>
-          <li>Log in</li>
-        </Link>
+        <li>
+          <Link onClick={e => setIsActive(false)} to='/login'>
+            Log in
+          </Link>
+        </li>
+
+        <li>
+          <Link onClick={e => setIsActive(false)} to='/contact'>
+            Contact Us
+          </Link>
+        </li>
       </ul>
     </div>
   );
@@ -79,8 +108,6 @@ const Navbar = ({
 
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
-  shuffle: PropTypes.func.isRequired,
-  unshuffle: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   word: PropTypes.object.isRequired
 };
@@ -92,5 +119,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logout, shuffle, unshuffle }
+  { logout }
 )(Navbar);
