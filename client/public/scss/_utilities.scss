@@ -15,6 +15,44 @@
 .light-color {
   color: $light-color;
 }
+
+// font
+.mnemonic-color {
+  color: $mnemonic-color;
+}
+
+.google-color {
+  color: $google-color;
+}
+
+.dictionary-color {
+  color: $dictionary-color;
+}
+
+.longdo-color {
+  color: $longdo-color;
+}
+
+.thesaurus-color {
+  color: $thesaurus-color;
+}
+
+.example-color {
+  color: $example-color;
+}
+
+.mnemonic-color {
+  color: $mnemonic-color;
+}
+
+.inSentence-color {
+  color: $inSentence-color;
+}
+
+.youdao-color {
+  color: $youdao-color;
+}
+
 .bg {
   &-primary {
     @include set-background($primary-color);
@@ -39,27 +77,6 @@
     @include set-background(#fff);
     border: solid 1px $light-color;
   }
-}
-
-// font
-.mnemonic-color {
-  color: $mnemonic;
-}
-
-.dictionary-color {
-  color: $dictionary;
-}
-
-.longdo-color {
-  color: $longdo;
-}
-
-.thesaurus-color {
-  color: $thesaurus;
-}
-
-.example-color {
-  color: $example;
 }
 
 .bold {

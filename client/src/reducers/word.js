@@ -8,6 +8,7 @@ import {
   SPEAK,
   SAY_ALL,
   SAY_FLAGGED,
+  CLEAR_WORDS,
   TOGGLE_FLAG
 } from '../actions/types';
 
@@ -85,6 +86,12 @@ export default function(state = initialState, action) {
         word: { ...state.word, flagged: payload.flagged },
         loading: false
       };
+    case CLEAR_WORDS:
+      return {
+        ...state,
+        words: []
+      };
+
     default:
       return state;
   }

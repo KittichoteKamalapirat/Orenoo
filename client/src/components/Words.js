@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import {
   getWords,
   speak,
@@ -8,7 +9,9 @@ import {
   resume,
   cancel,
   sayAll,
-  sayFlagged
+  sayFlagged,
+  shuffle,
+  unshuffle
 } from '../actions/word';
 import WordItem from './WordItem';
 import Word from './Word';
@@ -17,17 +20,20 @@ import Alert from './layout/Alert';
 import Say from 'react-say';
 
 const Words = ({
-  word: { words, word, loading, sayingAll, sayingFlagged },
+  word: { words, word, loading, sayingAll, sayingFlagged, shuffled },
   getWords,
   speak,
   shutup,
   resume,
   cancel,
   sayAll,
-  sayFlagged
+  sayFlagged,
+  deck_id,
+  shuffle,
+  unshuffle
 }) => {
   useEffect(() => {
-    getWords();
+    getWords(deck_id);
   }, [getWords]);
   return (
     <Fragment>
@@ -241,6 +247,25 @@ const Words = ({
               </div>
             )}
 
+            <div className='shuffle-icon'>
+              {shuffled ? (
+                <button
+                  onClick={e => {
+                    unshuffle(words);
+                  }}
+                >
+                  <i className='fas fa-random primary-color' />
+                </button>
+              ) : (
+                <button
+                  onClick={e => {
+                    shuffle(words);
+                  }}
+                >
+                  <i className='fas fa-random light-grey' />
+                </button>
+              )}
+            </div>
             {!word ? <h1>select word</h1> : <Word />}
           </div>
         </div>
@@ -256,7 +281,9 @@ Words.propTypes = {
   resume: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
   sayAll: PropTypes.func.isRequired,
-  sayFlagged: PropTypes.func.isRequired
+  sayFlagged: PropTypes.func.isRequired,
+  shuffle: PropTypes.func.isRequired,
+  unshuffle: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -265,5 +292,15 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getWords, speak, shutup, resume, cancel, sayAll, sayFlagged }
+  {
+    getWords,
+    speak,
+    shutup,
+    resume,
+    cancel,
+    sayAll,
+    sayFlagged,
+    shuffle,
+    unshuffle
+  }
 )(Words);

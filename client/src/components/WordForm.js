@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { addWord } from '../actions/word';
 import { connect } from 'react-redux';
 
-const WordForm = ({ addWord }) => {
+const WordForm = ({ deck_id, addWord }) => {
   const [word, setWord] = useState('');
 
   return (
-    <div className='search-form'>
+    <div className='word-form'>
       <form
         // className='form'
         // onSubmit={e => {
@@ -19,7 +19,7 @@ const WordForm = ({ addWord }) => {
         onKeyDown={e => {
           if (e.key === 'Enter') {
             e.preventDefault();
-            addWord({ word });
+            addWord(deck_id, { word });
             setWord('');
           }
         }}

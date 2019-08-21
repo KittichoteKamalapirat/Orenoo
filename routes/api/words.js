@@ -3,6 +3,8 @@ const Word = require('../../models/Word');
 const router = express.Router();
 const axios = require('axios');
 const auth = require('../../middleware/auth');
+var ObjectId = require('mongodb').ObjectID;
+
 // For Scraping
 const request = require('request');
 const cheerio = require('cheerio');
@@ -10,10 +12,11 @@ const cheerio = require('cheerio');
 // @ route    POST api/words
 // @desc      Add a new word
 // @access    Private
-router.post('/', auth, async (req, res) => {
+router.post('/:deck_id', auth, async (req, res) => {
   try {
     let newWord = new Word({
       user: req.user.id,
+      deck: req.params.deck_id,
       word: req.body.word,
       dict: {
         noun: [],
@@ -312,11 +315,31 @@ router.post('/', auth, async (req, res) => {
 });
 
 // @ route    GET api/words
-// @desc      Get all the words
+// @desc      Get all the words in a deck
 // @access    private
+router.get('/:deck_id', auth, async (req, res) => {
+  try {
+    const words = await Word.find({
+      user: req.user.id,
+      deck: req.params.deck_id
+    });
+    words.sort((a, b) => new Date(b.date) - new Date(a.date));
+    res.json(words);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @ route    GET api/words
+// @desc      Get all the words for a users
+// @access    private
+
 router.get('/', auth, async (req, res) => {
   try {
-    const words = await Word.find({ user: req.user.id });
+    const words = await Word.find({
+      user: req.user.id
+    });
     words.sort((a, b) => new Date(b.date) - new Date(a.date));
     res.json(words);
   } catch (err) {
@@ -381,5 +404,33 @@ router.put('/toggleflag/:id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// trying to update all the words
+// router.put('/', auth, async (req, res) => {
+//   try {
+//     console.log('make sure it is called');
+//     let words = await Word.find({ user: req.user.id });
+
+//     // kittichoteshane@gmail.com = 5d3438a8bde148428871ee02
+//     //manhattan text completion 5d58d1a37486f821acdef5f2
+//     //Magoosh = 5d5cc58d2a3d435b61bc9224
+//     //52 common 5d5cc98dc7cebc5c5375e6d8
+//     words.forEach(async word => {
+//       try {
+//         word.deck = ObjectId('5d5cc98dc7cebc5c5375e6d8');
+//         word.user = ObjectId('5d3438a8bde148428871ee02');
+//         console.log(word);
+//         await word.save();
+//       } catch (err) {
+//         console.error(err.message);
+//       }
+//     });
+//     console.log('Update Done');
+//     return res.json(words);
+//   } catch (err) {
+//     res.status(500).send('Server Error');
+//     console.log(err.message);
+//   }
+// });
 
 module.exports = router;

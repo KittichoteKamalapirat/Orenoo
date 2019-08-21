@@ -34,12 +34,23 @@ const Navbar = ({ word, auth: { isAuthenticated, loading }, logout }) => {
       <ul className={isActive ? 'block' : 'hide'}>
         <li>
           <Link onClick={e => setIsActive(false)} to='/decks'>
-            Back To Decks
+            My Study Decks
+          </Link>
+        </li>
+        <li>
+          <Link onClick={e => setIsActive(false)} to='/edit-profile'>
+            My Profile
           </Link>
         </li>
 
         <li>
-          <button onClick={logout} href='/landing'>
+          <button
+            onClick={e => {
+              setIsActive(false);
+              logout();
+            }}
+            href='/landing'
+          >
             <span className='hide-sm'>Log out</span>
           </button>
         </li>
@@ -77,14 +88,13 @@ const Navbar = ({ word, auth: { isAuthenticated, loading }, logout }) => {
       </div>
       <ul className={isActive ? 'block' : 'hide'}>
         <li>
-          <Link onClick={e => setIsActive(false)} to='/register'>
-            Sign up
-          </Link>
-        </li>
-
-        <li>
           <Link onClick={e => setIsActive(false)} to='/login'>
             Log in
+          </Link>
+        </li>
+        <li>
+          <Link onClick={e => setIsActive(false)} to='/register'>
+            Sign up
           </Link>
         </li>
 

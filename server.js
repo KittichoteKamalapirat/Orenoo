@@ -16,6 +16,7 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/words', require('./routes/api/words'));
 app.use('/api/decks', require('./routes/api/decks'));
+app.use('/api/profile', require('./routes/api/profile'));
 app.use('/', require('./routes/api/mail'));
 
 // Serve static asets in production

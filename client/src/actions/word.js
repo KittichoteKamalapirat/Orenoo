@@ -9,19 +9,20 @@ import {
   SAY_FLAGGED,
   SAY_ONE,
   SPEAK,
+  CLEAR_WORDS,
   TOGGLE_FLAG
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
 // Add a new word
-export const addWord = word => async dispatch => {
+export const addWord = (deck_id, word) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
   try {
-    const res = await axios.post('/api/words', word, config);
+    const res = await axios.post(`/api/words/${deck_id}`, word, config);
     dispatch({
       type: ADD_WORD,
       payload: res.data
@@ -34,12 +35,12 @@ export const addWord = word => async dispatch => {
 };
 
 // get all the words
-export const getWords = () => async dispatch => {
+export const getWords = deck_id => async dispatch => {
+  if (deck_id) {
+    dispatch({ type: CLEAR_WORDS });
+  }
   try {
-    const res = await axios.get('/api/words');
-    console.log(res);
-    console.log(res.data);
-    console.log('hihi');
+    const res = await axios.get(`/api/words/${deck_id}`);
     dispatch({
       type: GET_WORDS,
       payload: res.data
@@ -49,7 +50,19 @@ export const getWords = () => async dispatch => {
   }
 };
 
-// get all the words
+export const getAllWords = () => async dispatch => {
+  try {
+    const res = await axios.get(`/api/words`);
+    dispatch({
+      type: GET_WORDS,
+      payload: res.data
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+// get a single word
 export const getWord = _id => async dispatch => {
   try {
     dispatch({
@@ -61,7 +74,7 @@ export const getWord = _id => async dispatch => {
   }
 };
 
-// get all the words
+// Delete a word
 export const deleteWord = (id, word) => async dispatch => {
   try {
     await axios.delete(`/api/words/${id}`);

@@ -24,7 +24,7 @@ li {
   list-style-type: none;
 }
 .container {
-  margin-top: 5rem;
+  margin-top: 4rem;
 }
 
 .flex {
@@ -81,38 +81,29 @@ button {
       }
     }
   }
-  .auth {
-    display: flex;
-    background-color: white;
-    .search-form {
-      textarea {
-        z-index: 3;
-        display: block;
-        padding: 0.6rem;
-        font-size: 1rem;
-        margin: 1rem;
-        border-radius: 0.3rem;
-        border: solid 1px $light-grey;
-      }
-    }
-    ul {
-      display: flex;
-      width: 100%;
-      justify-content: flex-end;
-      margin: 0.5rem 1rem;
-      li {
-        margin: 0 0.5rem;
-      }
-      a {
-        text-decoration: none;
-        color: $light-grey;
-        font-weight: 500;
-      }
-    }
-    #logo {
-      margin: 0;
-    }
-  }
+
+  // .auth {
+  //   display: flex;
+  //   background-color: white;
+
+  //   ul {
+  //     display: flex;
+  //     width: 100%;
+  //     justify-content: flex-end;
+  //     margin: 0.5rem 1rem;
+  //     li {
+  //       margin: 0 0.5rem;
+  //     }
+  //     a {
+  //       text-decoration: none;
+  //       color: $light-grey;
+  //       font-weight: 500;
+  //     }
+  //   }
+  //   #logo {
+  //     margin: 0;
+  //   }
+  // }
 
   #logo {
     font-family: 'Lilita One', cursive;
@@ -158,6 +149,22 @@ button {
   }
 }
 
+.word-form {
+  position: absolute;
+  z-index: 20;
+  top: -0.3rem;
+  left: 6rem;
+
+  textarea {
+    z-index: 3;
+    display: block;
+    padding: 0.6rem;
+    font-size: 1rem;
+    margin: 1rem;
+    border-radius: 0.3rem;
+    border: solid 1px $light-grey;
+  }
+}
 .grid {
   display: grid;
   grid-template-areas: 'navbar right-area';
@@ -168,29 +175,6 @@ button {
   grid-area: right-area;
   padding: 0.5rem;
   width: 17rem;
-
-  .say-all {
-    position: absolute;
-    top: 9rem;
-    right: 2rem;
-  }
-  .say-flagged {
-    position: absolute;
-    top: 9rem;
-    right: 6rem;
-  }
-  .say-one {
-    position: absolute;
-    top: 9rem;
-    right: 11rem;
-  }
-
-  .fa-star {
-    position: relative;
-    left: 0.5rem;
-    bottom: 0.2rem;
-  }
-
   h1 {
     color: $primary-color;
   }
@@ -199,6 +183,35 @@ button {
     button {
       font-size: 1rem;
     }
+  }
+  button {
+    font-size: 1.2rem;
+  }
+  .say-all {
+    position: absolute;
+    top: 7.5rem;
+    right: 2rem;
+  }
+  .say-flagged {
+    position: absolute;
+    top: 7.5rem;
+    right: 4.5rem;
+  }
+  .say-one {
+    position: absolute;
+    top: 7.5rem;
+    right: 8rem;
+  }
+
+  .fa-star {
+    position: relative;
+    top: 0rem;
+    left: 0.5rem;
+  }
+  .shuffle-icon {
+    position: absolute;
+    top: 7.7rem;
+    left: 11rem;
   }
 }
 
@@ -440,6 +453,76 @@ button {
   }
 }
 
+// Decks
+.decks {
+  width: 90%;
+  margin: 5rem auto;
+  h1 {
+    text-align: center;
+  }
+  ul.deck-list {
+    font-size: 1.2rem;
+    li {
+      margin: 1rem 0;
+      padding: 0.6rem 2rem;
+      border: 0.5px solid rgba(50, 50, 50, 0.2);
+      border-radius: 0.2rem;
+      position: relative;
+      &:hover {
+        cursor: pointer;
+      }
+      a {
+        color: $dark-color;
+        text-decoration: none;
+      }
+      .remove-deck-button {
+        position: absolute;
+        right: 1rem;
+        width: 20px;
+        height: 20px;
+        // border: 1px solid $danger-color
+        border-radius: 50%;
+        background-color: rgba(237, 28, 36, 0.8);
+        color: #fff;
+      }
+    }
+  }
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0;
+    textarea {
+      display: block;
+      width: 100%;
+      margin: 0.2rem;
+      padding: 0.4rem;
+      font-size: 1rem;
+      border: 0.5px solid rgba(50, 50, 50, 0.2);
+      border-radius: 0.2rem;
+    }
+
+    input[type='submit'] {
+      display: block;
+      margin: 0 0.2rem;
+      text-align: center;
+      padding: 0.4rem 1rem;
+    }
+  }
+
+  .toggle-form-button {
+    position: absolute;
+    top: 5rem;
+    right: 1rem;
+    background-color: $primary-color;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 2rem;
+    color: white;
+  }
+}
+
 // Alert
 .alert-container {
   position: fixed;
@@ -474,6 +557,55 @@ button {
   color: #fff;
 }
 
+// Profile Section
+.profile-section {
+  margin-top: 5rem;
+  h1 {
+    text-align: center;
+  }
+  .account-info {
+    display: flex;
+    margin: 1rem auto;
+    width: fit-content;
+    font-size: 1.3rem;
+    p {
+      margin: 0 1rem;
+    }
+  }
+
+  .api {
+    margin: 2rem auto;
+    font-size: 1.2rem;
+    line-height: 3.5rem;
+    width: fit-content;
+
+    h3 {
+      text-align: center;
+    }
+    input[type='checkbox'] {
+      display: none;
+    }
+    input[type='checkbox'] + label:before {
+      content: '\2714';
+      font-size: 0.8rem;
+      color: transparent;
+      border: 2px solid $primary-color;
+      border-radius: 0.3rem;
+      padding: 2px 5px;
+      margin-right: 1rem;
+    }
+    input[type='checkbox']:checked + label:before {
+      color: #fff;
+      background-color: $primary-color;
+    }
+    input[type='submit'] {
+      margin: 2rem;
+    }
+    form {
+      font-family: 'Lilita One', cursive;
+    }
+  }
+}
 @media screen and (min-width: 700px) {
   .horizontal-navbar {
     z-index: 2;
@@ -484,7 +616,7 @@ button {
     box-shadow: 0px 0px 2px 1px #e6e6e6;
     .nav {
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0.6rem 2rem 0.5rem;
       display: flex;
       justify-content: space-between;
       .hamburger {
@@ -511,7 +643,7 @@ button {
     }
   }
   .container {
-    margin: 5 auto;
+    margin: 5rem auto;
   }
 
   .register-form {
@@ -523,11 +655,6 @@ button {
     transform: none;
   }
   // Vertical Navbar
-
-  .right-area {
-    width: 80%;
-    max-width: 800px;
-  }
 
   // Vertical
   .navbar {
@@ -640,36 +767,66 @@ button {
     max-width: 900px;
     margin: 0 auto;
   }
-}
+  .decks {
+    ul.deck-list {
+      font-size: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
 
-.grid {
-  .right-area,
-  button {
-    font-size: 1.2rem;
+      li {
+        margin: 1rem 1%;
+        width: 31%;
+        padding: 1rem 2rem;
+      }
+    }
   }
-}
 
-.yellow {
-  color: #fcee21;
-}
-.say-all {
-  position: absolute;
-  top: 9rem;
-  right: 8rem;
-}
-.say-flagged {
-  position: absolute;
-  top: 9rem;
-  right: 12rem;
-}
-.say-one {
-  position: absolute;
-  top: 9rem;
-  right: 17rem;
-}
+  .right-area {
+    grid-area: right-area;
+    padding: 0.5rem;
+    width: 80%;
+    h1 {
+      color: $primary-color;
+    }
+    .synonym {
+      line-height: 2rem;
+      button {
+        font-size: 1rem;
+      }
+    }
+    button {
+      font-size: 1.2rem;
+    }
+    .say-all {
+      position: absolute;
+      top: 8.5rem;
+      left: 37rem;
+    }
+    .say-flagged {
+      position: absolute;
+      top: 8.5rem;
+      left: 32rem;
+    }
+    .say-one {
+      position: absolute;
+      top: 8.5rem;
+      left: 28rem;
+    }
+    .shuffle-icon {
+      position: absolute;
+      top: 8.7rem;
+      left: 24rem;
+    }
 
-.fa-star {
-  position: relative;
-  left: 0.5rem;
-  bottom: 0.2rem;
+    .fa-star {
+      position: relative;
+      top: 0rem;
+      left: 1rem;
+    }
+  }
+
+  .word-form {
+    top: 0rem;
+    left: 9rem;
+  }
 }
