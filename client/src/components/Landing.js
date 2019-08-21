@@ -1,11 +1,17 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Footer from './layout/Footer';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { useMediaPredicate } from 'react-media-hook';
 
-const Landing = () => {
+const Landing = ({ isAuthenticated }) => {
   const biggerThan700 = useMediaPredicate('(min-width: 700px)');
+
+  if (isAuthenticated) {
+    return <Redirect to='/decks' />;
+  }
   return (
     <div className='landing'>
       <div className='header__bg' />
@@ -101,4 +107,14 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+Landing.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+export default connect(
+  mapStateToProps,
+  null
+)(Landing);

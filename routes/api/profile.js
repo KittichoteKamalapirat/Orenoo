@@ -58,14 +58,28 @@ router.post('/', auth, async (req, res) => {
   // Build profile object
   let profileFields = {};
   profileFields.user = req.user.id;
-  if (google !== null) profileFields.google = google;
-  if (dict !== null) profileFields.dict = dict;
-  if (mnemonic !== null) profileFields.mnemonic = mnemonic;
-  if (synonym !== null) profileFields.synonym = synonym;
-  if (example !== null) profileFields.example = example;
-  if (inSentence !== null) profileFields.inSentence = inSentence;
-  if (youdao !== null) profileFields.youdao = youdao;
-  if (thai !== null) profileFields.thai = thai;
+  google === null
+    ? (profileFields.google = true)
+    : (profileFields.google = google);
+  dict === null ? (profileFields.dict = true) : (profileFields.dict = dict);
+
+  mnemonic === null
+    ? (profileFields.mnemonic = true)
+    : (profileFields.mnemonic = mnemonic);
+  synonym === null
+    ? (profileFields.synonym = true)
+    : (profileFields.synonym = synonym);
+  example === null
+    ? (profileFields.example = true)
+    : (profileFields.example = example);
+  inSentence === null
+    ? (profileFields.inSentence = true)
+    : (profileFields.inSentence = inSentence);
+  thai === null ? (profileFields.thai = true) : (profileFields.thai = thai);
+
+  youdao === null
+    ? (profileFields.youdao = true)
+    : (profileFields.youdao = youdao);
 
   try {
     let profile = await Profile.findOne({ user: req.user.id });

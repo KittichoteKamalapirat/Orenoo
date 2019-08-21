@@ -16,7 +16,7 @@ router.post('/:deck_id', auth, async (req, res) => {
   try {
     let newWord = new Word({
       user: req.user.id,
-      deck: req.params.deck_id,
+      deck: ObjectId.isValid(req.params.deck_id) ? req.params.deck_id : null,
       word: req.body.word,
       dict: {
         noun: [],
@@ -332,7 +332,7 @@ router.get('/:deck_id', auth, async (req, res) => {
 });
 
 // @ route    GET api/words
-// @desc      Get all the words for a users
+// @desc      Get all the words for a user
 // @access    private
 
 router.get('/', auth, async (req, res) => {

@@ -19,7 +19,7 @@ const WordForm = ({ deck_id, addWord }) => {
         onKeyDown={e => {
           if (e.key === 'Enter') {
             e.preventDefault();
-            addWord(deck_id, { word });
+            addWord({ word }, deck_id);
             setWord('');
           }
         }}

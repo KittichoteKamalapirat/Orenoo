@@ -15,19 +15,28 @@ import {
 import axios from 'axios';
 import { setAlert } from './alert';
 // Add a new word
-export const addWord = (deck_id, word) => async dispatch => {
+export const addWord = (word, deck_id) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
   try {
-    const res = await axios.post(`/api/words/${deck_id}`, word, config);
-    dispatch({
-      type: ADD_WORD,
-      payload: res.data
-    });
-    dispatch(setAlert(`${word.word} added`, 'success'));
+    if (deck_id) {
+      const res = await axios.post(`/api/words/${deck_id}`, word, config);
+      dispatch({
+        type: ADD_WORD,
+        payload: res.data
+      });
+      dispatch(setAlert(`${word.word} added`, 'success'));
+    } else {
+      const res = await axios.post(`/api/words/combined`, word, config);
+      dispatch({
+        type: ADD_WORD,
+        payload: res.data
+      });
+      dispatch(setAlert(`${word.word} added`, 'success'));
+    }
   } catch (err) {
     dispatch(setAlert(`unable to add ${word.word}`, 'danger'));
     console.error(err.message);
