@@ -58,9 +58,11 @@ router.post('/', auth, async (req, res) => {
   // Build profile object
   let profileFields = {};
   profileFields.user = req.user.id;
+
   google === null
     ? (profileFields.google = true)
     : (profileFields.google = google);
+
   dict === null ? (profileFields.dict = true) : (profileFields.dict = dict);
 
   mnemonic === null
