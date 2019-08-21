@@ -24,7 +24,7 @@ export const register = ({ name, email, password }) => async dispatch => {
 
   try {
     const res = await axios.post('/api/users', body, config);
-    await axios.post('/api/profile');
+    // await axios.post('/api/profile');
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
@@ -54,7 +54,7 @@ export const login = (email, password) => async dispatch => {
 
   try {
     const res = await axios.post('/api/auth', body, config);
-    await axios.post('/api/profile');
+    // await axios.post('/api/profile');
 
     dispatch({
       type: LOGIN_SUCCESS,
