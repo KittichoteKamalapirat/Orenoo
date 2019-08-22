@@ -84,6 +84,9 @@ export default function(state = initialState, action) {
       return {
         ...state,
         word: { ...state.word, flagged: payload.flagged },
+        words: state.words.map(word =>
+          word._id === payload.id ? { ...word, flagged: payload.flagged } : word
+        ),
         loading: false
       };
     case CLEAR_WORDS:

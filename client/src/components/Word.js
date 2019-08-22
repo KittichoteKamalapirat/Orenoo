@@ -2,7 +2,6 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addWord, toggleFlag } from '../actions/word';
-import { getCurrentProfile } from '../actions/profile';
 import { SayButton } from 'react-say';
 const Word = ({
   word: {
@@ -23,37 +22,33 @@ const Word = ({
   profile: { profile, loading },
   auth,
   addWord,
-  toggleFlag,
-  getCurrentProfile
+  toggleFlag
 }) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
   return (
-    <div>
+    <div className='word-section'>
       <h1>{word}</h1>
-      <div className='say-one'>
-        <SayButton
-          className='say-one'
-          onClick={event => console.log(event)}
-          speak={word}
+
+      <div className='control-panel'>
+        <button
+          className='flag-button'
+          onClick={e => {
+            toggleFlag(_id);
+          }}
         >
-          <i className=' fas fa-volume-up' />
-          <p className='small'>One</p>
-        </SayButton>
+          {flagged ? (
+            <i class='fas fa-star primary-color' />
+          ) : (
+            <i class='fas fa-star light-grey' />
+          )}
+        </button>
+        <div className='say-one'>
+          <SayButton speak={word}>
+            <i className=' fas fa-volume-up' />
+            <p className='small'>One</p>
+          </SayButton>
+        </div>
       </div>
-      &nbsp;&nbsp;
-      <button
-        onClick={e => {
-          toggleFlag(_id);
-        }}
-      >
-        {flagged ? (
-          <i class='fas fa-star primary-color' />
-        ) : (
-          <i class='fas fa-star light-grey' />
-        )}
-      </button>
+
       {/* longdo.com */}
       {!loading && profile.thai && (
         <div className='thai shadow-box'>
@@ -384,8 +379,7 @@ Word.propTypes = {
   word: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   addWord: PropTypes.func.isRequired,
-  toggleFlag: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  toggleFlag: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -395,5 +389,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { addWord, toggleFlag, getCurrentProfile }
+  { addWord, toggleFlag }
 )(Word);

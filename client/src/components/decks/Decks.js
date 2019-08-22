@@ -22,7 +22,9 @@ const Decks = ({
   const [displayForm, toggleDisplayForm] = useState(false);
   return (
     <Fragment>
-      <Alert />
+      <div className='alert-container'>
+        <Alert />
+      </div>
       <div className='decks'>
         <h1>My Decks</h1>
         <button
