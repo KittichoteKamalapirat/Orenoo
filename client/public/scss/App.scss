@@ -120,19 +120,25 @@ button {
   height: 100vh;
   width: 6.5rem;
   text-align: left;
-  padding: 0 0.2rem 1rem 0.5rem;
+
   overflow-y: scroll;
   overflow-x: hidden;
   border-right: solid 0.5px $light-grey;
   .control-panel {
+    position: fixed;
     display: flex;
+    justify-content: space-between;
     padding: 0.3rem;
     border-bottom: solid 1px rgba(50, 50, 50, 0.2);
-    justify-content: space-between;
+    border-right: solid 1px rgba(50, 50, 50, 0.2);
+    background-color: #fff;
+    z-index: 30;
+    width: inherit;
   }
   .word-item {
     position: relative;
-    top: 1rem;
+    top: 2rem;
+    padding: 0 0.2rem 1rem 0.5rem;
     .each-item {
       line-height: 3rem;
       .not-flagged {
@@ -179,11 +185,29 @@ button {
 
 .right-area {
   grid-area: right-area;
-  padding: 0.5rem;
   width: 17rem;
+  padding: 0.3rem;
   h1 {
     color: $primary-color;
   }
+  .deck-info {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(50, 50, 50, 0.2);
+    padding-bottom: 0.2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    .deck-name {
+      font-size: 1.2rem;
+      overflow: hidden;
+    }
+    .word-number {
+      position: relative;
+      top: 0.2rem;
+      color: $grey-color;
+    }
+  }
+
   .synonym {
     line-height: 2rem;
     button {
@@ -192,9 +216,12 @@ button {
   }
   button {
     font-size: 1.2rem;
+    text-decoration: underline;
+    color: $primary-color;
   }
   .control-panel {
     display: flex;
+
     .say-one {
       position: relative;
       padding-left: 1rem;
@@ -805,6 +832,7 @@ button {
     h1 {
       color: $primary-color;
     }
+
     .synonym {
       line-height: 2rem;
       button {

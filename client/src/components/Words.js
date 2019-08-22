@@ -21,6 +21,7 @@ import Say from 'react-say';
 
 const Words = ({
   word: { words, word, loading, sayingAll, sayingFlagged, shuffled },
+  deck_name,
   getWords,
   speak,
   shutup,
@@ -184,6 +185,10 @@ const Words = ({
           </div>
 
           <div className='right-area'>
+            <div className='deck-info'>
+              <h2 className='deck-name'>{deck_name}</h2>
+              <p className='word-number'>{words.length} words</p>
+            </div>
             <div className='alert-container-word'>
               <Alert />
             </div>
@@ -210,7 +215,8 @@ Words.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  word: state.word
+  word: state.word,
+  deck_name: state.deck.deck.deck_name
 });
 
 export default connect(

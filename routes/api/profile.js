@@ -106,4 +106,35 @@ router.post('/', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// Danger routes
+// @ route    PUT api/profile
+// @desc      Update all profile for every user
+// @access    Private
+// router.post('/updateAll', async (req, res) => {
+//   try {
+//     const users = await User.find();
+//     users.forEach(async user => {
+//       try {
+//         const profile = new Profile({
+//           user: user._id,
+//           google: true,
+//           dict: true,
+//           mnemonic: true,
+//           synonym: true,
+//           example: true,
+//           inSentence: true,
+//           thai: false,
+//           youdao: false
+//         });
+//         await profile.save();
+//         console.log(profile);
+//       } catch (err) {
+//         console.error(err.message);
+//       }
+//     });
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// });
 module.exports = router;
