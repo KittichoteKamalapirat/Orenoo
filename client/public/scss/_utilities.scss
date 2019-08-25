@@ -53,6 +53,10 @@
   color: $youdao-color;
 }
 
+.hippo-color {
+  color: $hippo-color;
+}
+
 .bg {
   &-primary {
     @include set-background($primary-color);

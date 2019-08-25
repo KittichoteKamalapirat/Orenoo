@@ -31,6 +31,8 @@ export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
 export const SHUFFLE_WORDS = 'SHUFFLE_WORDS';
 export const UNSHUFFLE_WORDS = 'UNSHUFFLE_WORDS';
 
+export const CHANGE_ORDER = 'CHANGE_ORDER';
+
 export const ADD_DECK = 'CREATE_DECK';
 export const GET_DECKS = 'GET_DECKS';
 export const CLEAR_DECK = 'CLEAR_DECK';

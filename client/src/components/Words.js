@@ -11,7 +11,10 @@ import {
   sayAll,
   sayFlagged,
   shuffle,
-  unshuffle
+  unshuffle,
+  aToZ,
+  zToA,
+  defaultOrder
 } from '../actions/word';
 import WordItem from './WordItem';
 import Word from './Word';
@@ -32,6 +35,9 @@ const Words = ({
   deck_id,
   shuffle,
   unshuffle,
+  aToZ,
+  zToA,
+  defaultOrder,
   getCurrentProfile
 }) => {
   useEffect(() => {
@@ -42,7 +48,46 @@ const Words = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
   const [displayFlag, toggleDisplayFlag] = useState(false);
-  const fuckingChunk = word => (
+  const [alphabet, setAlphabet] = useState('default');
+
+  const setOrder = (alphabet, words) => {
+    if (alphabet === 'default') {
+      return (
+        <button
+          onClick={e => {
+            aToZ(words);
+            setAlphabet('AtoZ');
+          }}
+        >
+          <i class='fas fa-sort-alpha-down light-grey' />
+        </button>
+      );
+    } else if (alphabet === 'AtoZ') {
+      return (
+        <button
+          onClick={e => {
+            zToA(words);
+            setAlphabet('ZtoA');
+          }}
+        >
+          <i class='fas fa-sort-alpha-down primary-color' />
+        </button>
+      );
+    } else {
+      return (
+        <button
+          onClick={e => {
+            defaultOrder(words);
+            setAlphabet('default');
+          }}
+        >
+          <i class='fas fa-sort-alpha-down-alt primary-color' />
+        </button>
+      );
+    }
+  };
+
+  const flagChunk = word => (
     <Fragment>
       {' '}
       <Say speak={word.word} />
@@ -123,6 +168,8 @@ const Words = ({
                 )}
               </button>
 
+              {setOrder(alphabet, words)}
+
               {sayingAll ? (
                 <div className='say-all'>
                   <button
@@ -138,8 +185,8 @@ const Words = ({
                   {displayFlag
                     ? words
                         .filter(word => word.flagged === true)
-                        .map(word => fuckingChunk(word))
-                    : words.map(word => fuckingChunk(word))}
+                        .map(word => flagChunk(word))
+                    : words.map(word => flagChunk(word))}
                 </div>
               ) : (
                 <div className='say-all'>
@@ -211,7 +258,10 @@ Words.propTypes = {
   sayFlagged: PropTypes.func.isRequired,
   shuffle: PropTypes.func.isRequired,
   unshuffle: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  aToZ: PropTypes.func.isRequired,
+  zToA: PropTypes.func.isRequired,
+  defaultOrder: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -231,6 +281,9 @@ export default connect(
     sayFlagged,
     shuffle,
     unshuffle,
-    getCurrentProfile
+    aToZ,
+    getCurrentProfile,
+    zToA,
+    defaultOrder
   }
 )(Words);

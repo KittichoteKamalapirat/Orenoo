@@ -23,7 +23,8 @@ const EditProfile = ({
       inSentence:
         loading || !profile.inSentence === null ? true : profile.inSentence,
       thai: loading || !profile.thai === null ? true : profile.thai,
-      youdao: loading || !profile.youdao === null ? true : profile.youdao
+      youdao: loading || !profile.youdao === null ? true : profile.youdao,
+      hippo: loading || !profile.hippo === null ? true : profile.hippo
     });
   }, [loading, getCurrentProfile]);
 
@@ -35,7 +36,8 @@ const EditProfile = ({
     example: true,
     inSentence: true,
     thai: true,
-    youdao: true
+    youdao: true,
+    hippo: true
   });
 
   const {
@@ -46,7 +48,8 @@ const EditProfile = ({
     example,
     inSentence,
     thai,
-    youdao
+    youdao,
+    hippo
   } = formData;
 
   const onChange = e =>
@@ -145,6 +148,19 @@ const EditProfile = ({
               id='synonym'
               value={synonym}
               checked={synonym}
+            />
+
+            <label for='hippo'>wordhippo.com</label>
+          </div>
+          <div className='checkbox hippo-color'>
+            <input
+              onChange={e => onChange(e)}
+              //   don't forget to put e !
+              type='checkbox'
+              name='hippo'
+              id='hippo'
+              value={hippo}
+              checked={hippo}
             />
 
             <label for='synonym'>Thesaurus.com</label>

@@ -9,7 +9,8 @@ import {
   SAY_ALL,
   SAY_FLAGGED,
   CLEAR_WORDS,
-  TOGGLE_FLAG
+  TOGGLE_FLAG,
+  CHANGE_ORDER
 } from '../actions/types';
 
 const initialState = {
@@ -88,6 +89,11 @@ export default function(state = initialState, action) {
           word._id === payload.id ? { ...word, flagged: payload.flagged } : word
         ),
         loading: false
+      };
+    case CHANGE_ORDER:
+      return {
+        ...state,
+        words: payload
       };
     case CLEAR_WORDS:
       return {

@@ -16,7 +16,8 @@ const Word = ({
       synonym,
       example,
       inSentence,
-      youdao
+      youdao,
+      hippo
     }
   },
   profile: { profile, loading },
@@ -333,7 +334,21 @@ const Word = ({
           </ul>
         </div>
       )}
-      {/* Dictionary.com */}
+      {/* Word in Sentence */}
+      {!loading && profile.hippo && (
+        <div className='example shadow-box'>
+          <h2 className='hippo-color'>Word Hippo</h2>
+
+          {hippo.slice(0, 6).map(sen => (
+            <div className='item'>
+              <hr />
+              <br />
+              <p>{sen}</p>
+              <br />
+            </div>
+          ))}
+        </div>
+      )}
       {/* synonym */}
       {!loading && profile.synonym && (
         <div className='synonym shadow-box'>

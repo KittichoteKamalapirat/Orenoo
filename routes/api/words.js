@@ -36,7 +36,8 @@ router.post('/:deck_id', auth, async (req, res) => {
       example: [],
       synonym: [],
       inSentence: [],
-      youdao: []
+      youdao: [],
+      hippo: []
     });
 
     // Scrape for dictionary information
@@ -279,13 +280,32 @@ router.post('/:deck_id', auth, async (req, res) => {
         .each((index, value) => {
           const list = $(value).text();
           newWord.youdao.push(list);
-          console.log(newWord.youdao);
+          // console.log(newWord.youdao);
         });
     } catch (err) {
       console.error(err.message);
       // res.status(500).send('Server Error');
     }
+    try {
+      const response = await axios.get(
+        `https://www.wordhippo.com/what-is/sentences-with-the-word/${
+          req.body.word
+        }.html`
+      );
 
+      const $ = cheerio.load(response.data);
+      $('.exv2row1').each((index, value) => {
+        const sen = $(value).text();
+        newWord.hippo.push(sen);
+      });
+
+      $('.exv2row2').each((index, value) => {
+        const sen = $(value).text();
+        newWord.hippo.push(sen);
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
     // ____________________________________BEFORE SAVE____________________________________
     console.log(newWord);
 

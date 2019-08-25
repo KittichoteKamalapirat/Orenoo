@@ -52,7 +52,8 @@ router.post('/', auth, async (req, res) => {
     example,
     inSentence,
     thai,
-    youdao
+    youdao,
+    hippo
   } = req.body;
 
   // Build profile object
@@ -82,6 +83,8 @@ router.post('/', auth, async (req, res) => {
   youdao === null
     ? (profileFields.youdao = true)
     : (profileFields.youdao = youdao);
+
+  hippo === null ? (profileFields.hippo = true) : (profileFields.hippo = hippo);
 
   try {
     let profile = await Profile.findOne({ user: req.user.id });
@@ -125,13 +128,27 @@ router.post('/', auth, async (req, res) => {
 //           example: true,
 //           inSentence: true,
 //           thai: false,
-//           youdao: false
+//           youdao: false,
+//           hippo: true
 //         });
 //         await profile.save();
 //         console.log(profile);
 //       } catch (err) {
 //         console.error(err.message);
 //       }
+//     });
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// });
+
+// router.post('/updateAll', async (req, res) => {
+//   try {
+//     const profiles = await Profile.find();
+//     profiles.forEach(async profile => {
+//       profile.hippo = true;
+//       await profile.save();
+//       console.log(profile);
 //     });
 //   } catch (err) {
 //     console.error(err.message);

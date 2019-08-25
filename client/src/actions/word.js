@@ -10,6 +10,7 @@ import {
   SAY_ONE,
   SPEAK,
   CLEAR_WORDS,
+  CHANGE_ORDER,
   TOGGLE_FLAG
 } from './types';
 import axios from 'axios';
@@ -244,6 +245,66 @@ export const toggleFlag = id => async dispatch => {
     dispatch({
       type: TOGGLE_FLAG,
       payload: { id, flagged: res.data }
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const aToZ = words => async dispatch => {
+  try {
+    let afterSorted = words.sort((a, b) => {
+      if (a.word.toLowerCase() < b.word.toLowerCase()) {
+        return -1;
+      }
+      if (a.word.toLowerCase() > b.word.toLowerCase()) {
+        return 1;
+      }
+      return 0;
+    });
+    dispatch({
+      type: CHANGE_ORDER,
+      payload: afterSorted
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const zToA = words => async dispatch => {
+  try {
+    let afterSorted = words.sort((a, b) => {
+      if (a.word.toLowerCase() < b.word.toLowerCase()) {
+        return 1;
+      }
+      if (a.word.toLowerCase() > b.word.toLowerCase()) {
+        return -1;
+      }
+      return 0;
+    });
+    dispatch({
+      type: CHANGE_ORDER,
+      payload: afterSorted
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+export const defaultOrder = words => async dispatch => {
+  try {
+    let afterSorted = words.sort((a, b) => {
+      if (a.date < b.date) {
+        return 1;
+      }
+      if (a.date > b.date) {
+        return -1;
+      }
+      return 0;
+    });
+    dispatch({
+      type: CHANGE_ORDER,
+      payload: afterSorted
     });
   } catch (err) {
     console.error(err.message);

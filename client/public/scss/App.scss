@@ -141,12 +141,11 @@ button {
     padding: 0 0.2rem 1rem 0.5rem;
     .each-item {
       line-height: 3rem;
+      font-size: 1rem;
       .not-flagged {
-        font-size: 1rem;
         color: $dark-color;
       }
       .flagged {
-        font-size: 1rem;
         color: $primary-color;
       }
       .remove-word {
@@ -168,6 +167,7 @@ button {
   left: 6rem;
 
   textarea {
+    position: fixed;
     z-index: 3;
     display: block;
     padding: 0.6rem;
@@ -181,6 +181,7 @@ button {
   display: grid;
   grid-template-areas: 'navbar right-area';
   grid-template-columns: 2fr 5fr;
+  // grid-template-columns: 1fr minmax(auto, 20%);
 }
 
 .right-area {
@@ -225,6 +226,10 @@ button {
     .say-one {
       position: relative;
       padding-left: 1rem;
+      button {
+        text-decoration: none;
+        color: $grey-color;
+      }
     }
     .flag-button {
       position: relative;
@@ -703,12 +708,20 @@ button {
   // Vertical
   .navbar {
     font-size: 2rem;
-    left: 10%;
-    width: 10rem;
+    width: 25%;
     border-right: solid 0.5px $light-grey;
     border-left: solid 0.5px $light-grey;
-    .word-item .each-item .word {
-      font-size: 1.2rem;
+    padding-left: 10%;
+    .control-panel {
+      width: 15%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .word-item {
+      top: 4rem;
+      .each-item {
+        font-size: 1.5rem;
+      }
     }
   }
 
@@ -852,11 +865,7 @@ button {
       top: 8.5rem;
       left: 32rem;
     }
-    .say-one {
-      position: absolute;
-      top: 8.5rem;
-      left: 28rem;
-    }
+
     .shuffle-icon {
       position: absolute;
       top: 8.7rem;
@@ -868,10 +877,26 @@ button {
       top: 0rem;
       left: 1rem;
     }
+    .word-section {
+      .control-panel {
+        position: fixed;
+        right: 3rem;
+        top: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10rem 1rem;
+        // border: solid 1px rgba(50, 50, 50, 0.5);
+        box-shadow: 0px 0px 2px 1px #e6e6e6;
+        // background-color: $light-color;
+        height: 100vh;
+      }
+    }
   }
 
   .word-form {
     top: 0rem;
     left: 9rem;
+    position: fixed;
   }
 }
