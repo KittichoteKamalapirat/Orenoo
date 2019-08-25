@@ -34,7 +34,8 @@ function App() {
           <Navbar />
           <div className='container'>
             <Switch>
-              <PrivateRoute exact path='/' component={Words} />
+              <PrivateRoute exact path='/' component={Landing} />
+              {/* <PrivateRoute exact path='/' component={Words} /> */}
               <PrivateRoute exact path='/decks' component={Decks} />
               {/* <PrivateRoute exact path='/myprofile' component={Profile} /> */}
               <PrivateRoute
