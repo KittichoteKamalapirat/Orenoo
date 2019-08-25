@@ -80,17 +80,33 @@ const Landing = ({ isAuthenticated }) => {
 
       <div className='how-it-works'>
         <h2>How it works</h2>
-        <p className='lead'>
+
+        <ul>
+          <li>
+            <p>1. Pick your languages</p>
+            <img src='/select.svg' alt='Select your language' />
+          </li>
+          <li>
+            <p>2. Add your own vocabularies</p>
+            <img src='/add.svg' alt='Add your own vocabularies' />
+          </li>
+          <li>
+            <p>3.Learn more effectively </p>
+            <img src='/learn.svg' alt='Learn more effectively' />
+          </li>
+        </ul>
+
+        {/* <p className='lead'>
           Add your own words by typing in the search bar. These terms will be
           saved to your account and you can access them anytime.
-        </p>
+        </p> */}
 
-        <p className='lead'>
+        {/* <p className='lead'>
           You can delete words that you already remembered and add new one
           whenever you want.
-        </p>
+        </p> */}
       </div>
-
+      {/* 
       <div className='why'>
         <h2>What problem do we solve</h2>
         <p className='lead'>
@@ -100,7 +116,7 @@ const Landing = ({ isAuthenticated }) => {
           resource learners want. With Orenoo, you do not have to go search for
           multiple websites, we combine them for you in one single application.
         </p>
-      </div>
+      </div> */}
 
       <Footer />
     </div>
