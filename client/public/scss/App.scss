@@ -226,6 +226,7 @@ button {
     .say-one {
       position: relative;
       padding-left: 1rem;
+      margin-left: 0.5rem;
       button {
         text-decoration: none;
         color: $grey-color;
@@ -233,14 +234,11 @@ button {
     }
     .flag-button {
       position: relative;
+      margin-left: 1.5rem;
       bottom: 0.3rem;
     }
   }
-  // .say-all {
-  //   position: absolute;
-  //   top: 7.5rem;
-  //   right: 2rem;
-  // }
+
   // .say-flagged {
   //   position: absolute;
   //   top: 7.5rem;
@@ -252,6 +250,12 @@ button {
   //   top: 7.7rem;
   //   left: 11rem;
   // }
+}
+.say-all {
+  color: $grey-color;
+}
+.say-all {
+  color: $grey-color;
 }
 
 .shadow-box {
@@ -906,8 +910,8 @@ button {
 
     .fa-star {
       position: relative;
-      top: 0rem;
-      left: 1rem;
+      top: -1rem;
+      left: 0rem;
     }
     .word-section {
       .control-panel {

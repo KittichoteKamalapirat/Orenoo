@@ -44,11 +44,9 @@ export const addWord = (word, deck_id) => async dispatch => {
   }
 };
 
-// get all the words
+// get all the words by dieck_id
 export const getWords = deck_id => async dispatch => {
-  // if (deck_id) {
-  //   dispatch({ type: CLEAR_WORDS });
-  // }
+  dispatch({ type: CLEAR_WORDS });
   try {
     const res = await axios.get(`/api/words/${deck_id}`);
     dispatch({
