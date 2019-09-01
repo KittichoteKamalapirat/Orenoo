@@ -140,7 +140,7 @@ const Words = ({
         <Say
           speak={word.inSentence[0].substring(
             0,
-            word.inSentence[0].indexOf('.')
+            word.inSentence[0].indexOf('🔉')
           )}
         />
       )}
