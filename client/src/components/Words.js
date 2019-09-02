@@ -138,10 +138,7 @@ const Words = ({
       <Say speak='hello world' rate={0.6} volume={0} />
       {word.inSentence[0] && (
         <Say
-          speak={word.inSentence[0].substring(
-            0,
-            word.inSentence[0].indexOf('🔉')
-          )}
+          speak={word.inSentence[0].substring(0, word.inSentence[0].length - 2)}
         />
       )}
       <Say speak='hello world' rate={0.6} volume={0} />

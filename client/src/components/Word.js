@@ -239,7 +239,7 @@ const Word = ({
             <div className='item'>
               <hr />
               <br />
-              <p>{sen}</p>
+              <p>{sen.substring(0, sen.length - 2)}</p>
               <br />
             </div>
           ))}
