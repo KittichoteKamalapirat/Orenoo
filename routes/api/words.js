@@ -45,9 +45,7 @@ router.post('/:deck_id', auth, async (req, res) => {
     // Google Dictionary
     try {
       const response = await axios.get(
-        `https://googledictionaryapi.eu-gb.mybluemix.net/?define=${
-          req.body.word
-        }&lang=en`
+        `https://googledictionaryapi.eu-gb.mybluemix.net/?define=${req.body.word}&lang=en`
       );
       const meaning = response.data[0].meaning;
 
@@ -288,9 +286,7 @@ router.post('/:deck_id', auth, async (req, res) => {
     }
     try {
       const response = await axios.get(
-        `https://www.wordhippo.com/what-is/sentences-with-the-word/${
-          req.body.word
-        }.html`
+        `https://www.wordhippo.com/what-is/sentences-with-the-word/${req.body.word}.html`
       );
 
       const $ = cheerio.load(response.data);
@@ -357,9 +353,12 @@ router.get('/:deck_id', auth, async (req, res) => {
 
 router.get('/', auth, async (req, res) => {
   try {
+    console.log('hi');
     const words = await Word.find({
       user: req.user.id
     });
+    console.log('length');
+    console.log(words.length);
     words.sort((a, b) => new Date(b.date) - new Date(a.date));
     res.json(words);
   } catch (err) {
@@ -453,4 +452,27 @@ router.put('/toggleflag/:id', auth, async (req, res) => {
 //   }
 // });
 
+// router.delete('/haha/delete-no-deck', auth, async (req, res) => {
+//   try {
+//     console.log('hi0');
+//     if (req.user.id == '5d3438a8bde148428871ee02') {
+//       console.log('hi');
+//       const words = await Word.find({ user: req.user.id });
+//       console.log('h2');
+//       words.map(async (word, index) => {
+//         if (!word.deck) {
+//           await word.remove();
+//           console.log(index);
+//         }
+//       });
+//       res.json({ a: 'b' });
+//     } else {
+//       console.log('not shane');
+//     }
+//     //delete if Kittishane and have no decks
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send('Server Error');
+//   }
+// });
 module.exports = router;

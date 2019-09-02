@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { getWord, deleteWord } from '../actions/word';
 import { connect } from 'react-redux';
+import Spinner from './layout/Spinner';
 
-const WordItem = ({ word: { word, _id, flagged }, getWord, deleteWord }) => {
+const WordItem = ({
+  word: { word, _id, flagged, loading },
+  getWord,
+  deleteWord
+}) => {
   // psedo code
   // if(shuffle is true){ unshuffle ( order by time)}
   // else shuffle (use the algorithm)
@@ -17,21 +22,28 @@ const WordItem = ({ word: { word, _id, flagged }, getWord, deleteWord }) => {
   // }
 
   return (
-    <div className='each-item'>
-      {flagged ? (
-        <button className='flagged' onClick={e => getWord(_id)}>
-          {word}
-        </button>
+    <Fragment>
+      {' '}
+      {loading ? (
+        <Spinner />
       ) : (
-        <button className='not-flagged' onClick={e => getWord(_id)}>
-          {word}
-        </button>
-      )}
+        <div className='each-item'>
+          {flagged ? (
+            <button className='flagged' onClick={e => getWord(_id)}>
+              {word}
+            </button>
+          ) : (
+            <button className='not-flagged' onClick={e => getWord(_id)}>
+              {word}
+            </button>
+          )}
 
-      <button className='remove-word' onClick={e => deleteWord(_id, word)}>
-        +
-      </button>
-    </div>
+          <button className='remove-word' onClick={e => deleteWord(_id, word)}>
+            +
+          </button>
+        </div>
+      )}
+    </Fragment>
   );
 };
 

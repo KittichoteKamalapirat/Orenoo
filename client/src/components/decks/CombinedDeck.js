@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Words from '../Words';
+import CombinedWords from '../CombinedWords';
 import Spinner from '../layout/Spinner';
 import Alert from '../layout/Alert';
 import { getAllWords } from '../../actions/word';
@@ -16,7 +16,7 @@ const CombinedDeck = ({ word: { loading }, auth, getAllWords }) => {
     <Fragment>
       {loading ? <Spinner /> : <WordForm />}
 
-      {loading ? <Spinner /> : <Words />}
+      {loading ? <Spinner /> : <CombinedWords />}
     </Fragment>
   );
 };

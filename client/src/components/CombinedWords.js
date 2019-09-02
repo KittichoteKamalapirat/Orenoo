@@ -22,9 +22,8 @@ import Spinner from './layout/Spinner';
 import Alert from './layout/Alert';
 import Say from 'react-say';
 
-const Words = ({
+const CombinedWords = ({
   word: { words, word, loading, sayingAll, sayingFlagged, shuffled },
-  deck_name,
   getWords,
   speak,
   shutup,
@@ -59,7 +58,7 @@ const Words = ({
             setAlphabet('AtoZ');
           }}
         >
-          <i class='fas fa-sort-alpha-down light-grey' />
+          <i className='fas fa-sort-alpha-down light-grey' />
         </button>
       );
     } else if (alphabet === 'AtoZ') {
@@ -81,7 +80,7 @@ const Words = ({
             setAlphabet('default');
           }}
         >
-          <i className='fas fa-sort-alpha-down-alt primary-color' />
+          <i class='fas fa-sort-alpha-down-alt primary-color' />
         </button>
       );
     }
@@ -230,7 +229,7 @@ const Words = ({
 
           <div className='right-area'>
             <div className='deck-info'>
-              <h2 className='deck-name'>{deck_name}</h2>
+              <h2 className='deck-name'>Combined Deck</h2>
               <p className='word-number'>{words.length} words</p>
             </div>
             <div className='alert-container-word'>
@@ -245,7 +244,7 @@ const Words = ({
   );
 };
 
-Words.propTypes = {
+CombinedWords.propTypes = {
   getWords: PropTypes.func.isRequired,
   speak: PropTypes.func.isRequired,
   shutup: PropTypes.func.isRequired,
@@ -262,8 +261,7 @@ Words.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  word: state.word,
-  deck_name: state.deck.deck.deck_name
+  word: state.word
 });
 
 export default connect(
@@ -283,4 +281,4 @@ export default connect(
     zToA,
     defaultOrder
   }
-)(Words);
+)(CombinedWords);

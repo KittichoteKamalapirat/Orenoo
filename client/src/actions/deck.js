@@ -5,7 +5,8 @@ import {
   GET_DECKS,
   GET_DECK,
   REMOVE_DECK,
-  CLEAR_DECK
+  CLEAR_DECK,
+  CLEAR_WORDS
 } from './types';
 
 export const addDeck = deck_name => async dispatch => {
@@ -37,6 +38,8 @@ export const getDecks = () => async dispatch => {
       type: GET_DECKS,
       payload: res.data
     });
+
+    dispatch({ type: CLEAR_WORDS });
   } catch (err) {
     console.error(err.message);
   }
