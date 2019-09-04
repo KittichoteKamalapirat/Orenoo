@@ -17,7 +17,7 @@ const WordSchema = new Schema({
   },
   flagged: {
     type: Boolean,
-    default: false
+    default: true
   },
   dict: {
     noun: {
