@@ -14,7 +14,14 @@ const Deck = ({ match, word, deck: { loading, deck }, auth, getDeck }) => {
 
   return (
     <Fragment>
-      {!loading && deck && <WordForm deck_id={deck._id} />}
+      {!loading &&
+        deck &&
+        deck._id !== '5d80d318ef7be21f17fcb014' &&
+        deck._id !== '5d80db8b1809c820678383d8' &&
+        deck._id !== '5d80dd898e906a20a2efd118' &&
+        deck._id !== '5d80dff7af877920d88a8491' && (
+          <WordForm deck_id={deck._id} />
+        )}
 
       {!loading && deck && <Words deck_id={deck._id} />}
     </Fragment>

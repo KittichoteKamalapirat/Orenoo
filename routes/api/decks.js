@@ -43,10 +43,11 @@ router.get('/:id', auth, async (req, res) => {
   try {
     const deck = await Deck.findById(req.params.id);
 
-    if (deck.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'User not authorized ' });
+    if (deck.user) {
+      if (deck.user.toString() !== req.user.id) {
+        return res.status(401).json({ msg: 'User not authorized ' });
+      }
     }
-
     res.json(deck);
   } catch (err) {
     console.error(err.message);

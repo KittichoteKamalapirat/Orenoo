@@ -348,6 +348,22 @@ router.get('/:deck_id', auth, async (req, res) => {
 });
 
 // @ route    GET api/words
+// @desc      Get all the words in a deck
+// @access    private
+router.get('/default-deck/:deck_id', auth, async (req, res) => {
+  try {
+    const words = await Word.find({
+      deck: req.params.deck_id
+    });
+    words.sort((a, b) => new Date(b.date) - new Date(a.date));
+    res.json(words);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @ route    GET api/words
 // @desc      Get all the words for a user
 // @access    private
 

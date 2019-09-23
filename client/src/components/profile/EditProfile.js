@@ -150,8 +150,9 @@ const EditProfile = ({
               checked={synonym}
             />
 
-            <label for='hippo'>wordhippo.com</label>
+            <label for='synonym'>Thesaurus.com</label>
           </div>
+
           <div className='checkbox hippo-color'>
             <input
               onChange={e => onChange(e)}
@@ -163,7 +164,7 @@ const EditProfile = ({
               checked={hippo}
             />
 
-            <label for='synonym'>Thesaurus.com</label>
+            <label for='hippo'>wordhippo.com</label>
           </div>
           <div className='checkbox longdo-color'>
             <input

@@ -40,6 +40,31 @@ const Decks = ({
             <li>
               <Link to={'/decks/combined'}>All your vocabularies</Link>
             </li>
+
+            <li>
+              <Link to={'/decks/5d80d318ef7be21f17fcb014'}>
+                Top 20 Most Common GRE Words by Magoosh
+              </Link>
+            </li>
+
+            <li>
+              <Link to={'/decks/5d80db8b1809c820678383d8'}>
+                Top 52 GRE Words by Kaplan
+              </Link>
+            </li>
+
+            <li>
+              <Link to={'/decks/5d80dd898e906a20a2efd118'}>
+                Top 101 High Frequency GRE Words by CrunchPrep
+              </Link>
+            </li>
+
+            <li>
+              <Link to={'/decks/5d80dff7af877920d88a8491'}>
+                Top 30 TOEFL Words by FluentU
+              </Link>
+            </li>
+
             {decks.map(deck => (
               <li>
                 <Link to={`/decks/${deck._id}`}>{deck.deck_name}</Link>

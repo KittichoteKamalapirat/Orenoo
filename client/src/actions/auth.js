@@ -7,6 +7,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  GET_PROFILE,
   LOGOUT
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
@@ -24,11 +25,12 @@ export const register = ({ name, email, password }) => async dispatch => {
 
   try {
     const res = await axios.post('/api/users', body, config);
-    // await axios.post('/api/profile');
+    await axios.post('/api/profile');
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
+
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
@@ -81,11 +83,16 @@ export const loadUser = () => async dispatch => {
 
   try {
     const res = await axios.get('/api/auth');
-    // await axios.post('/api/profile');
+    const res2 = await axios.get('/api/profile/me');
 
     dispatch({
       type: USER_LOADED,
       payload: res.data
+    });
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res2.data
     });
   } catch (err) {
     dispatch({

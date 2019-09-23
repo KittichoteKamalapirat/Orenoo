@@ -46,8 +46,20 @@ export const addWord = (word, deck_id) => async dispatch => {
 
 // get all the words by dieck_id
 export const getWords = deck_id => async dispatch => {
+  let res;
   try {
-    const res = await axios.get(`/api/words/${deck_id}`);
+    if (
+      deck_id === '5d80d318ef7be21f17fcb014' ||
+      '5d80db8b1809c820678383d8' ||
+      '5d80dd898e906a20a2efd118' ||
+      '5d80dff7af877920d88a8491' ||
+      '5d80dff7af877920d88a8491'
+    ) {
+      res = await axios.get(`/api/words/default-deck/${deck_id}`);
+    } else {
+      res = await axios.get(`/api/words/${deck_id}`);
+    }
+
     dispatch({
       type: GET_WORDS,
       payload: res.data
