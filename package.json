@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A dictionary that you can look for screenshots from various apps to optimize my vocabulary learning",
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "node server",
     "server": "nodemon server -e js ",
