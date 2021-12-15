@@ -1,5 +1,5 @@
 {
-  "name": "goigo",
+  "name": "orenoo",
   "version": "1.0.0",
   "description": "A dictionary that you can look for screenshots from various apps to optimize my vocabulary learning",
   "main": "server.js",
@@ -32,6 +32,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.3",
     "concurrently": "^6.3.0",
     "nodemon": "^2.0.13"
   }
