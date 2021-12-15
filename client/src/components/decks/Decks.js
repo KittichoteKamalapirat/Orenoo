@@ -1,11 +1,11 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { addDeck, getDecks, getDeck, removeDeck } from '../../actions/deck';
-import DeckForm from './DeckForm';
-import Spinner from '../layout/Spinner';
-import Alert from '../layout/Alert';
+import React, { Fragment, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { addDeck, getDecks, getDeck, removeDeck } from "../../actions/deck";
+import DeckForm from "./DeckForm";
+import Spinner from "../layout/Spinner";
+import Alert from "../layout/Alert";
 
 const Decks = ({
   auth,
@@ -13,7 +13,7 @@ const Decks = ({
   addDeck,
   getDecks,
   getDeck,
-  removeDeck
+  removeDeck,
 }) => {
   useEffect(() => {
     getDecks();
@@ -22,22 +22,22 @@ const Decks = ({
   const [displayForm, toggleDisplayForm] = useState(false);
   return (
     <Fragment>
-      <div className='alert-container'>
+      <div className="alert-container">
         <Alert />
       </div>
-      <div className='decks'>
+      <div className="decks">
         <h1>My Decks</h1>
         <button
-          className='toggle-form-button'
-          onClick={e => toggleDisplayForm(!displayForm)}
+          className="toggle-form-button"
+          onClick={(e) => toggleDisplayForm(!displayForm)}
         >
-          {displayForm ? '-' : '+'}
+          {displayForm ? "-" : "+"}
         </button>
         {displayForm && <DeckForm />}
 
         {!auth.loading && !loading ? (
-          <ul className='deck-list'>
-            <li>
+          <ul className="deck-list">
+            {/* <li>
               <Link to={'/decks/combined'}>All your vocabularies</Link>
             </li>
 
@@ -63,14 +63,14 @@ const Decks = ({
               <Link to={'/decks/5d80dff7af877920d88a8491'}>
                 Top 30 TOEFL Words by FluentU
               </Link>
-            </li>
+            </li> */}
 
-            {decks.map(deck => (
+            {decks.map((deck) => (
               <li>
                 <Link to={`/decks/${deck._id}`}>{deck.deck_name}</Link>
                 <button
-                  className='remove-deck-button'
-                  onClick={e => removeDeck(deck._id, deck.deck_name)}
+                  className="remove-deck-button"
+                  onClick={(e) => removeDeck(deck._id, deck.deck_name)}
                 >
                   -
                 </button>
@@ -92,14 +92,16 @@ Decks.propTypes = {
   addDeck: PropTypes.func.isRequired,
   getDecks: PropTypes.func.isRequired,
   getDeck: PropTypes.func.isRequired,
-  removeDeck: PropTypes.func.isRequired
+  removeDeck: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  deck: state.deck
+  deck: state.deck,
 });
-export default connect(
-  mapStateToProps,
-  { addDeck, getDecks, getDeck, removeDeck }
-)(Decks);
+export default connect(mapStateToProps, {
+  addDeck,
+  getDecks,
+  getDeck,
+  removeDeck,
+})(Decks);
