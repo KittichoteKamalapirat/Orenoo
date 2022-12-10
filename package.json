@@ -21,7 +21,7 @@
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.10",
     "config": "^3.2.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-validator": "^6.13.0",
     "googleapis": "^88.2.0",
     "jsonwebtoken": "^8.5.1",
